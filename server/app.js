@@ -7,8 +7,6 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var coursesRouter = require('./routes/courses')
 
-require('./databases/redis');
-
 var app = express();
 
 app.use(logger('dev'));
