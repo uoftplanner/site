@@ -1,14 +1,14 @@
-import React from "react";
-import Flex from "@chakra-ui/core/dist/Flex";
-import Heading from "@chakra-ui/core/dist/Heading";
-import MenuItem from "./MenuItem";
-import {Button} from "@chakra-ui/core";
+import React from 'react';
+import Flex from '@chakra-ui/core/dist/Flex';
+import Heading from '@chakra-ui/core/dist/Heading';
+import MenuItem from './MenuItem';
+import {Button} from '@chakra-ui/core';
 
 class Header extends React.Component {
 
     render() {
         let headerStyle = {
-            padding: "34px 61px"
+            padding: '34px 61px'
         };
 
         return (
