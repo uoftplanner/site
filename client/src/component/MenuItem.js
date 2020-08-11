@@ -1,5 +1,5 @@
-import React from "react";
-import Heading from "@chakra-ui/core/dist/Heading";
+import React from 'react';
+import Heading from '@chakra-ui/core/dist/Heading';
 
 class MenuItem extends React.Component {
 
