@@ -4,7 +4,7 @@ import {
 	BrowserRouter as Router,
 	Switch,
 	Route
-} from "react-router-dom";
+} from 'react-router-dom';
 import './App.css';
 import Header from './component/Header'
 import HomePage from './views/HomePage'
@@ -17,7 +17,7 @@ class App extends React.Component {
 				<Header />
 				<Router>
 					<Switch>
-						<Route exact path='/' component={HomePage} />
+						<Route exact path="/" component={HomePage} />
 					</Switch>
 				</Router>
 			</ThemeProvider>
