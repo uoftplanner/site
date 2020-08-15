@@ -22,7 +22,7 @@ class SearchBar extends React.Component {
             datumTokenizer: Bloodhound.tokenizers.nonword,
             remote: {
                 wildcard: ':query',
-                url: 'http://localhost:3000/api/course/search/:query',
+                url: '/api/course/search/:query',
             }
         });
 
