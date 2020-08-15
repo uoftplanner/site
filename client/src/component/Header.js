@@ -1,8 +1,6 @@
 import React from 'react';
-import Flex from '@chakra-ui/core/dist/Flex';
-import Heading from '@chakra-ui/core/dist/Heading';
+import {Button, Flex, Heading} from '@chakra-ui/core';
 import MenuItem from './MenuItem';
-import {Button} from '@chakra-ui/core';
 
 class Header extends React.Component {
 
