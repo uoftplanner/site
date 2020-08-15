@@ -6,8 +6,8 @@ import {
 	Route
 } from 'react-router-dom';
 import './App.css';
-import Header from './component/Header'
-import HomePage from './views/HomePage'
+import Header from './component/Header';
+import HomePage from './views/HomePage';
 
 class App extends React.Component {
 	render() {
