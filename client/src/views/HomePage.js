@@ -1,8 +1,8 @@
-import React from "react"
-import { Box, Button, Text, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Icon } from "@chakra-ui/core"
-import Container from '../component/Container'
+import React from "react";
+import {Box, Text, Heading} from "@chakra-ui/core";
+import SearchBar from "../component/SearchBar";
 
-function Homepage() {
+function HomePage() {
     const backgroundStyle = {
         backgroundImage: 'url(bg.svg)',
         height: 'calc(100vh - 113px)',
@@ -10,6 +10,7 @@ function Homepage() {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover'
     }
+
     return (
         <div style={backgroundStyle}>
             <Box maxWidth={["400px", "628px", "800px", "900px"]} m="auto" pt="5%">
@@ -22,22 +23,10 @@ function Homepage() {
                 <Text fontSize="2xl" color="gray.600" textAlign="center" mt=".5em">
                     lorem ipsum blah doloa
                     </Text>
-                <InputGroup size="lg" mt="2em">
-                    <InputLeftElement children={<Icon name="search" color="gray.300" />} />
-                    <Input placeholder="Search for a course..."
-                        borderWidth="2px"
-                        focusBorderColor="purple.500"
-                        aria-label="Search bar"
-                        aria-describedby="Search for a class here" />
-                    <InputRightElement width="7rem">
-                        <Button variantColor="purple" size="lg">
-                            SEARCH
-                            </Button>
-                    </InputRightElement>
-                </InputGroup>
+                <SearchBar />
             </Box>
         </div>
     )
 }
 
-export default Homepage
+export default HomePage
