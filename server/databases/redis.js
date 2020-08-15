@@ -1,9 +1,9 @@
-var redis = require("redis")
-var redisearch = require("redredisearch")
+var redis = require("redis");
+var redisearch = require("redredisearch");
 
-let client = redis.createClient()
+let client = redis.createClient();
 
-redisearch.setClient(client)
+redisearch.setClient(client);
 
 client.on("error", function(error) {
     console.error(error);
