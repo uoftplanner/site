@@ -33,7 +33,7 @@ router.get('/course/search/:searchQuery', function(req, res, next) {
 router.get('/course/:course', function(req, res, next) {
     redis.hgetall(req.params.course, (err, reply) => {
         // TODO: respond with error
-        res.send(reply);
+        res.send(reply.json);
     });
 });
 
