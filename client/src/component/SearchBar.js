@@ -7,14 +7,9 @@ import {
     InputGroup,
     InputLeftElement,
     InputRightElement,
-    List,
-    ListIcon,
-    ListItem,
-    Text
 } from '@chakra-ui/core';
-import {FaSearch, FaBook} from 'react-icons/fa';
-
-const MAX_SUGGESTIONS = 5;
+import {FaSearch} from 'react-icons/fa';
+import SearchSuggestionList from './SearchSuggestionList';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -41,6 +36,7 @@ class SearchBar extends React.Component {
 
     onChange(event) {
         this.bloodhound.search(event.target.value,
+            // TODO: fix this
             // sync request
             results => {
                 //this.setState({suggestions: results});
@@ -56,37 +52,15 @@ class SearchBar extends React.Component {
     }
 
     onBlur() {
-        setTimeout(() => {
-            this.setState({focused: false});
-        }, 200);
+        this.setState({focused: false});
     }
 
     render() {
-        let courseHeader;
-        let courseResults;
-        let showMoreResults;
-        if (this.state.focused && this.state.suggestions.length > 0) {
-            courseHeader = <Text fontSize="sm" fontWeight="700" color="gray.400" ml={3} pt={3}>COURSES</Text>;
-
-            let partialSuggestions = this.state.suggestions.slice(0, MAX_SUGGESTIONS);
-            courseResults = partialSuggestions.map((suggestion, index) => {
-                return (
-                    <ListItem display="flex" pt={3} pb={3} key={index} alignItems="center">
-                        <ListIcon as={FaBook} color="purple.500" width="22px" height="22px" ml={3} />
-                        <Text fontSize="lg" fontWeight="600" color="black">{suggestion}</Text>
-                    </ListItem>
-                )
-            });
-
-            if (this.state.suggestions.length - MAX_SUGGESTIONS > 0) {
-                showMoreResults = <Text fontSize="md" fontWeight="500" color="gray.500" ml={3} pb={3}>
-                    Show more ({this.state.suggestions.length - MAX_SUGGESTIONS} results)
-            </Text>;
-            }
-        }
-
         return (
-            <div>
+            <div tabIndex="1"
+                 style={{outline: "none"}}
+                 onFocus={this.onFocus}
+                 onBlur={this.onBlur}>
                 <InputGroup size="lg" mt="2em">
                     <InputLeftElement children={<Icon as={FaSearch} color="gray.300" />} />
                     <Input placeholder="Search for a course..."
@@ -96,8 +70,6 @@ class SearchBar extends React.Component {
                         aria-label="Search bar"
                         aria-describedby="Search for a class here"
                         onChange={this.onChange}
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
                     />
                     <InputRightElement width="8rem" pr="0">
                         <Button colorScheme="purple" size="lg">
@@ -106,20 +78,7 @@ class SearchBar extends React.Component {
                     </InputRightElement>
                 </InputGroup>
 
-                <List
-                    display={this.state.focused && this.state.suggestions.length > 0 ? "initial" : "none"}
-                    mt="1px"
-                    border="1px solid"
-                    backgroundColor="white"
-                    borderRadius="0 0 5px 5px"
-                    borderColor="gray.200"
-                    position="absolute"
-                    width={["400px", "628px", "800px", "900px"]}>
-                    {courseHeader}
-                    {courseResults}
-                    {showMoreResults}
-                </List>
-
+                {<SearchSuggestionList isOpen={this.state.focused} suggestions={this.state.suggestions} />}
             </div>
         );
     }
