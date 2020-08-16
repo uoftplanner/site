@@ -1,26 +1,29 @@
+import {CSSReset, ChakraProvider} from '@chakra-ui/core';
+import theme from '@chakra-ui/theme';
 import React from 'react';
-import logo from './logo.svg';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route
+} from 'react-router-dom';
 import './App.css';
+import Header from './component/Header';
+import HomePage from './views/HomePage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          let's go!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+	render() {
+		return (
+			<ChakraProvider theme={theme}>
+				<CSSReset />
+				<Header />
+				<Router>
+					<Switch>
+						<Route exact path="/" component={HomePage} />
+					</Switch>
+				</Router>
+			</ChakraProvider>
+		);
+	}
 }
 
 export default App;
