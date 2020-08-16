@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
+import CourseHeader from '../component/CourseHeader';
+import CourseDescription from '../component/CourseDescription';
+import CourseInfoCard from '../component/CourseInfoCard';
 
 function CoursePage(props) {
     const courseId = props.match.params.courseId;
@@ -19,17 +22,26 @@ function CoursePage(props) {
     if (courseData) {
         return (
             <div>
-                {courseData.Code}
-                {courseData.Name}
-                {courseData.Campus}
-                {courseData.Term}
-                {courseData.Description}
-                {courseData.Prerequisites}
-                {courseData.Corequisites}
-                {courseData.Exclusions}
+                <CourseInfoCard
+                    top="150px"
+                    right="61px"
+                    prerequisites={courseData.Prerequisites}
+                    corequisites={courseData.Corequisites}
+                    exclusions={courseData.Exclusions} />
+
+                <CourseHeader
+                    code={courseData.Code}
+                    name={courseData.Name}
+                    campus={courseData.Campus}
+                    term={courseData.Term} />
+
+                <CourseDescription description={courseData.Description} />
+
+                {/*TODO: create schedule component */}
             </div>
         );
     } else {
+        //TODO: add a loading view or skeleton placeholder
         return (<div>Nothing yet...</div>);
     }
 }
