@@ -9,6 +9,7 @@ import {
 import './App.css';
 import Header from './component/Header';
 import HomePage from './views/HomePage';
+import CoursePage from './views/CoursePage';
 
 class App extends React.Component {
 	render() {
@@ -19,6 +20,7 @@ class App extends React.Component {
 				<Router>
 					<Switch>
 						<Route exact path="/" component={HomePage} />
+						<Route exact path="/course/:courseId" component={CoursePage} />
 					</Switch>
 				</Router>
 			</ChakraProvider>
