@@ -72,7 +72,7 @@ class SearchBar extends React.Component {
             courseResults = partialSuggestions.map((suggestion, index) => {
                 return (
                     <ListItem display="flex" pt={3} pb={3} key={index} alignItems="center">
-                        <ListIcon as={FaBook} color="purple.500" size="25px" ml={3} />
+                        <ListIcon as={FaBook} color="purple.500" width="22px" height="22px" ml={3} />
                         <Text fontSize="lg" fontWeight="600" color="black">{suggestion}</Text>
                     </ListItem>
                 )
