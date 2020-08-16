@@ -1,4 +1,5 @@
-import {CSSReset, ThemeProvider} from '@chakra-ui/core'
+import {CSSReset, ChakraProvider} from '@chakra-ui/core';
+import theme from '@chakra-ui/theme';
 import React from 'react';
 import {
 	BrowserRouter as Router,
@@ -12,7 +13,7 @@ import HomePage from './views/HomePage';
 class App extends React.Component {
 	render() {
 		return (
-			<ThemeProvider>
+			<ChakraProvider theme={theme}>
 				<CSSReset />
 				<Header />
 				<Router>
@@ -20,7 +21,7 @@ class App extends React.Component {
 						<Route exact path="/" component={HomePage} />
 					</Switch>
 				</Router>
-			</ThemeProvider>
+			</ChakraProvider>
 		);
 	}
 }

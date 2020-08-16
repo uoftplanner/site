@@ -10,7 +10,8 @@ import {
     Menu,
     MenuItem,
     MenuList
-} from "@chakra-ui/core";
+} from '@chakra-ui/core';
+import {FaSearch} from 'react-icons/fa';
 
 class SearchBar extends React.Component {
     constructor(props) {
@@ -60,25 +61,25 @@ class SearchBar extends React.Component {
         return (
             <div>
                 <InputGroup size="lg" mt="2em">
-                    <InputLeftElement children={<Icon name="search" color="gray.300" />} />
+                    <InputLeftElement children={<Icon as={FaSearch} color="gray.300" />} />
                     <Input placeholder="Search for a course..."
-                           borderWidth="2px"
-                           focusBorderColor="purple.500"
-                           aria-label="Search bar"
-                           aria-describedby="Search for a class here"
-                           onChange={this.onChange}
-                           onFocus={this.onFocus}
-                           //onBlur={this.onBlur}
+                        borderWidth="2px"
+                        focusBorderColor="purple.500"
+                        aria-label="Search bar"
+                        aria-describedby="Search for a class here"
+                        onChange={this.onChange}
+                        onFocus={this.onFocus}
+                    //    onBlur={this.onBlur}
                     />
-                    <InputRightElement width="7rem">
-                        <Button variantColor="purple" size="lg">
+                    <InputRightElement width="8rem" pr="0">
+                        <Button colorScheme="purple" size="lg">
                             SEARCH
                         </Button>
                     </InputRightElement>
-                 </InputGroup>
+                </InputGroup>
 
-                <Menu>
-                    <MenuList position="relative" top="0" right="0" isOpen={this.state.focused}>
+                <Menu isOpen={this.state.focused}>
+                    <MenuList position="relative" top="0" right="0">
                         {this.state.suggestions.map(suggestion => <MenuItem key={suggestion}>{suggestion}</MenuItem>)}
                     </MenuList>
                 </Menu>
