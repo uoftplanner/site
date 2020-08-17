@@ -1,6 +1,6 @@
 var express = require('express');
 var redis = require('../databases/redis');
-var redisearch = require("redredisearch");
+var redisearch = require('redredisearch');
 
 var router = express.Router();
 var search;
@@ -43,6 +43,11 @@ router.get('/course/search/:searchQuery', function(req, res, next) {
 
 router.get('/course/:course', function(req, res, next) {
     redis.hgetall(req.params.course, (err, reply) => {
+        if (!reply) {
+            res.send('{}');
+            return;
+        }
+
         // TODO: respond with error
         res.send(reply.json);
     });

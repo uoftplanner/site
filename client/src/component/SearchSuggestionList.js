@@ -30,7 +30,10 @@ class SearchSuggestionList extends React.Component {
                 <Text fontSize="sm" fontWeight="700" color="gray.400" ml={3} pt={3}>COURSES</Text>;
 
                 {suggestions.slice(0, MAX_SUGGESTIONS).map((suggestion) => {
-                    return <SearchSuggestionListItem code={suggestion.code} name={suggestion.name} />;
+                    return <SearchSuggestionListItem
+                        key={suggestion.code}
+                        code={suggestion.code}
+                        name={suggestion.name} />;
                 })}
 
                 {hasMoreResults &&

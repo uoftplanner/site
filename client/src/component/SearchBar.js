@@ -16,13 +16,18 @@ class SearchBar extends React.Component {
         super(props);
 
         this.bloodhound = new Bloodhound({
-            local: ['some', 'default', 'suggestions'],
-            queryTokenizer: Bloodhound.tokenizers.ngram,
+            local: [],
+            queryTokenizer: Bloodhound.tokenizers.nonword,
             datumTokenizer: Bloodhound.tokenizers.nonword,
+            identify: course => {
+                return course.code;
+            },
             remote: {
                 wildcard: ':query',
                 url: '/api/course/search/:query',
-            }
+                rateLimitWait: 0
+            },
+            indexRemote: true
         });
 
         this.suggestionMenu = React.createRef();
@@ -36,11 +41,7 @@ class SearchBar extends React.Component {
 
     onChange(event) {
         this.bloodhound.search(event.target.value,
-            // TODO: fix this
-            // sync request
-            results => {
-                //this.setState({suggestions: results});
-            },
+            () => {},
             // async request
             results => {
                 this.setState({suggestions: results});

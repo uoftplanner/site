@@ -36,8 +36,10 @@ Query.prototype.end = function(fn){
         'FT.SEARCH',
         args,
         function(err,resp) {
-            if (err) { fn(err); } else {
-                fn(err,resp.slice(1));
+            if (err) {
+                fn(err);
+            } else {
+                fn(err, resp.slice(1));
             }
         }
     );
