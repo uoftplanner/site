@@ -2,7 +2,7 @@ var redis = require('redis');
 var redisearch = require('redredisearch');
 var {Query} = require('redredisearch');
 
-let client = redis.createClient();
+let client = redis.createClient({host: process.env.REDIS_HOST || '127.0.0.1'});
 
 redisearch.setClient(client);
 
