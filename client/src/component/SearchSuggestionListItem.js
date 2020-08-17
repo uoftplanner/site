@@ -26,8 +26,9 @@ class SearchSuggestionListItem extends React.Component {
                 <Text fontSize="lg" fontWeight="600" color="black">
                     {code}&nbsp;
                 </Text>
-                <Text fontSize="lg" fontWeight="600" color="gray.500">
-                —&nbsp;{name}
+                <Text fontSize="lg" fontWeight="600" color="gray.500">—</Text>
+                <Text fontSize="lg" fontWeight="400" color="gray.500">
+                &nbsp;{name}
                 </Text>
             </ListItem>
         );
