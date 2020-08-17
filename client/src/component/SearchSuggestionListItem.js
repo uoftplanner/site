@@ -17,8 +17,8 @@ class SearchSuggestionListItem extends React.Component {
                 as={Link}
                 to={"/course/" + code}
                 display="flex"
-                paddingTop='3px'
-                paddingBottom='3px'
+                paddingTop="3px"
+                paddingBottom="3px"
                 key={code}
                 alignItems="center">
 
