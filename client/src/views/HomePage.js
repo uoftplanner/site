@@ -23,7 +23,9 @@ function HomePage() {
                 <Text fontSize="2xl" color="gray.600" textAlign="center" mt=".5em">
                     lorem ipsum blah doloa
                     </Text>
-                <SearchBar />
+                <Box p={["0px", "0 10px 0 10px"]}>
+                    <SearchBar />
+                </Box>
             </Box>
         </div>
     )

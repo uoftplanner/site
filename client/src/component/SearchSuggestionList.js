@@ -24,8 +24,7 @@ class SearchSuggestionList extends React.Component {
                 border="1px solid"
                 backgroundColor="white"
                 borderRadius="0 0 5px 5px"
-                borderColor="gray.200"
-                width={["400px", "628px", "800px", "900px"]}>
+                borderColor="gray.200">
 
                 <Text fontSize="sm" fontWeight="700" color="gray.400" ml={3} pt={3}>COURSES</Text>;
 
