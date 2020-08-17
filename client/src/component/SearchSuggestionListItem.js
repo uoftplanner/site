@@ -1,4 +1,5 @@
 import {ListIcon, ListItem, Text} from '@chakra-ui/core';
+import {Link} from 'react-router-dom'
 import {FaBook} from 'react-icons/fa/index';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -9,7 +10,18 @@ class SearchSuggestionListItem extends React.Component {
         const name = this.props.name;
 
         return (
-            <ListItem display="flex" pt={3} pb={3} key={code} alignItems="center">
+            <ListItem
+                _hover={{bg: "#F4F0F7"}}
+                width="100%"
+                borderRadius="8px"
+                as={Link}
+                to={"/course/" + code}
+                display="flex"
+                paddingTop='3'
+                paddingBottom='3'
+                key={code}
+                alignItems="center">
+
                 <ListIcon as={FaBook} color="purple.500" width="22px" height="22px" ml={3} />
                 <Text fontSize="lg" fontWeight="600" color="black">
                     {code + ' - ' + name}

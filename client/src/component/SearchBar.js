@@ -11,6 +11,7 @@ import {
 import {FaSearch} from 'react-icons/fa';
 import SearchSuggestionList from './SearchSuggestionList';
 
+// TODO: arrow key controls
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
@@ -78,7 +79,7 @@ class SearchBar extends React.Component {
                         onFocus={this.onFocus}
                         onChange={this.onChange}
                         placeholder="Search for a course..."
-                        borderRadius={this.state.focused && this.state.suggestions.length > 0 ? "5px 5px 0 0" : "5px"}
+                        borderRadius={this.state.focused && this.state.suggestions.length ? "5px 5px 0 0" : "5px"}
                         borderWidth="2px"
                         focusBorderColor="purple.500"
                         aria-label="Search bar"
