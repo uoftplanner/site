@@ -24,7 +24,10 @@ class SearchSuggestionListItem extends React.Component {
 
                 <ListIcon as={FaBook} color="purple.500" width="22px" height="22px" ml={3} />
                 <Text fontSize="lg" fontWeight="600" color="black">
-                    {code + ' - ' + name}
+                    {code}&nbsp;
+                </Text>
+                <Text fontSize="lg" fontWeight="600" color="gray.500">
+                —&nbsp;{name}
                 </Text>
             </ListItem>
         );
