@@ -1,8 +1,9 @@
 var redis = require('redis');
 var redisearch = require('redredisearch');
 var {Query} = require('redredisearch');
+var key = require('../config/key');
 
-let client = redis.createClient({host: process.env.REDIS_HOST || '127.0.0.1'});
+let client = redis.createClient({host: key.redisHost || '127.0.0.1'});
 
 redisearch.setClient(client);
 
