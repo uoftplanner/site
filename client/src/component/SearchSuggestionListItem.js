@@ -1,6 +1,6 @@
-import {ListIcon, ListItem, Text} from '@chakra-ui/core';
-import {Link} from 'react-router-dom';
-import {FaBook} from 'react-icons/fa/index';
+import { ListIcon, ListItem, Text } from '@chakra-ui/core';
+import { Link } from 'react-router-dom';
+import { FaBook } from 'react-icons/fa/index';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,7 @@ class SearchSuggestionListItem extends React.Component {
 
     return (
       <ListItem
-        _hover={{bg: '#F4F0F7'}}
+        _hover={{ bg: '#F4F0F7' }}
         width="100%"
         borderRadius="8px"
         as={Link}
@@ -22,7 +22,13 @@ class SearchSuggestionListItem extends React.Component {
         key={code}
         alignItems="center"
       >
-        <ListIcon as={FaBook} color="purple.500" width="22px" height="22px" ml={3} />
+        <ListIcon
+          as={FaBook}
+          color="purple.500"
+          width="22px"
+          height="22px"
+          ml={3}
+        />
         <Text fontSize="lg" fontWeight="600" color="black">
           {code}&nbsp;
         </Text>
