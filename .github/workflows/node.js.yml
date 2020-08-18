@@ -25,5 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
+    - run: npx eslint ./server
+    - run: npx eslint ./client/src
     - run: cd client
     - run: npm run build --if-present
