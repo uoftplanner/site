@@ -15,6 +15,7 @@ client.on('connect', () => {
   console.log('Connected to Redis database');
 });
 
+/* eslint-disable no-underscore-dangle */
 // add support to return fields since redredisearch only returns an array of indices
 Query.prototype.end = fn => {
   const key = this.search;

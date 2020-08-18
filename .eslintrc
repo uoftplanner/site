@@ -2,6 +2,7 @@
   "extends": ["airbnb", "airbnb/hooks", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "prefer-arrow-callback": ["error", {"allowNamedFunctions": true}]
   }
 }
