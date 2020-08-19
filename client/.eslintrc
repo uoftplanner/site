@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb", "airbnb-base", "airbnb/hooks", "prettier", "prettier/react"],
+  "extends": ["airbnb", "airbnb/hooks", "prettier", "prettier/react"],
   "env": {
     "browser": true,
     "jest": true
@@ -11,6 +11,7 @@
     "prefer-arrow-callback": ["error", {"allowNamedFunctions": true}],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   },
+  "root": true,
   "settings": {
     "react": {
       "version": "latest"
