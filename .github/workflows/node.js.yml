@@ -27,6 +27,6 @@ jobs:
       - run: cd client
       - run: npm ci
       - run: cd ..
-      - run: eslint . --ignore-path .gitignore --resolve-plugins-relative-to node_modules
+      - run: npx eslint . --ignore-path .gitignore --resolve-plugins-relative-to node_modules
       - run: cd client
       - run: npm run build --if-present
