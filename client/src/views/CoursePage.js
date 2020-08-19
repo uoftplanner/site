@@ -22,7 +22,7 @@ function CoursePage(props) {
     return (
       <div>
         <CourseInfoCard
-          top="150px"
+          top="180px"
           right="61px"
           prerequisites={courseData.prerequisites}
           corequisites={courseData.corequisites}

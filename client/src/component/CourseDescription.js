@@ -9,7 +9,7 @@ function CourseDescription(props) {
         <Text fontSize="sm" fontWeight="700" color="gray.400" mb="0.25em">
           DESCRIPTION
         </Text>
-        <Text fontSize="lg" width="60%">
+        <Text fontSize="lg" width={{base: '100%', lg: '60%'}}>
           {props.description}
         </Text>
       </Container>

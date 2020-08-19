@@ -4,6 +4,8 @@ import {Box, Text} from '@chakra-ui/core';
 function CourseInfoCard(props) {
   return (
     <Box
+      display={{base: 'none', lg: 'initial'}}
+      width="35%"
       zIndex="2"
       position="absolute"
       right={props.right}
