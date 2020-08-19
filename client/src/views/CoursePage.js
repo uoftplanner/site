@@ -24,19 +24,19 @@ function CoursePage(props) {
         <CourseInfoCard
           top="150px"
           right="61px"
-          prerequisites={courseData.Prerequisites}
-          corequisites={courseData.Corequisites}
-          exclusions={courseData.Exclusions}
+          prerequisites={courseData.prerequisites}
+          corequisites={courseData.corequisites}
+          exclusions={courseData.exclusions}
         />
 
         <CourseHeader
-          code={courseData.Code}
-          name={courseData.Name}
-          campus={courseData.Campus}
-          term={courseData.Term}
+          code={courseData.code}
+          name={courseData.name}
+          campus={courseData.campus}
+          term={courseData.term}
         />
 
-        <CourseDescription description={courseData.Description} />
+        <CourseDescription description={courseData.description} />
 
         {/*TODO: create schedule component */}
       </div>
