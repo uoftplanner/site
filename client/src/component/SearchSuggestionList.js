@@ -1,4 +1,4 @@
-import { List, Text } from '@chakra-ui/core';
+import {List, Text} from '@chakra-ui/core';
 import React from 'react';
 import SearchSuggestionListItem from './SearchSuggestionListItem';
 import PropTypes from 'prop-types';
@@ -30,7 +30,7 @@ class SearchSuggestionList extends React.Component {
           COURSES
         </Text>
         ;
-        {suggestions.slice(0, MAX_SUGGESTIONS).map((suggestion) => {
+        {suggestions.slice(0, MAX_SUGGESTIONS).map(suggestion => {
           return (
             <SearchSuggestionListItem
               key={suggestion.code}

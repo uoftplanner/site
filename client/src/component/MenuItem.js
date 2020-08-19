@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from '@chakra-ui/core';
+import {Heading} from '@chakra-ui/core';
 
 class MenuItem extends React.Component {
   render() {

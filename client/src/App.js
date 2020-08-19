@@ -8,20 +8,20 @@ import HomePage from './views/HomePage';
 import CoursePage from './views/CoursePage';
 
 class App extends React.Component {
-	render() {
-		return (
-			<ChakraProvider theme={theme}>
-				<CSSReset />
-				<Header />
-				<Router>
-					<Switch>
-						<Route exact path="/" component={HomePage} />
-						<Route exact path="/course/:courseId" component={CoursePage} />
-					</Switch>
-				</Router>
-			</ChakraProvider>
-		);
-	}
+  render() {
+    return (
+      <ChakraProvider theme={theme}>
+        <CSSReset />
+        <Header />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/course/:courseId" component={CoursePage} />
+          </Switch>
+        </Router>
+      </ChakraProvider>
+    );
+  }
 }
 
 export default App;
