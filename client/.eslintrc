@@ -1,0 +1,20 @@
+{
+  "extends": ["airbnb", "airbnb/hooks", "prettier", "prettier/react"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "prettier/prettier": ["error"],
+    "prefer-arrow-callback": ["error", {"allowNamedFunctions": true}],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  },
+  "root": true,
+  "settings": {
+    "react": {
+      "version": "latest"
+    }
+  }
+}

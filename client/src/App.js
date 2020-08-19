@@ -6,7 +6,7 @@ import './App.css';
 import Header from './component/Header';
 import HomePage from './views/HomePage';
 
-class App extends React.Component {
+class App extends React.PureComponent {
   render() {
     return (
       <ChakraProvider theme={theme}>

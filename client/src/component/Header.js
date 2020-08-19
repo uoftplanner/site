@@ -2,9 +2,9 @@ import React from 'react';
 import {Button, Flex, Heading} from '@chakra-ui/core';
 import MenuItem from './MenuItem';
 
-class Header extends React.Component {
+class Header extends React.PureComponent {
   render() {
-    let headerStyle = {
+    const headerStyle = {
       padding: '34px 61px',
     };
 
@@ -16,7 +16,7 @@ class Header extends React.Component {
 
         <Flex alignItems="center" flexGrow="1" marginLeft="94px">
           <MenuItem>courses</MenuItem>
-          <MenuItem lastItem={true}>about</MenuItem>
+          <MenuItem lastItem>about</MenuItem>
         </Flex>
 
         <Flex alignItems="center">

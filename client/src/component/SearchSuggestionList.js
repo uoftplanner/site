@@ -1,20 +1,20 @@
-import { List, Text } from '@chakra-ui/core';
+import {List, Text} from '@chakra-ui/core';
 import React from 'react';
-import SearchSuggestionListItem from './SearchSuggestionListItem';
 import PropTypes from 'prop-types';
+import SearchSuggestionListItem from './SearchSuggestionListItem';
 
 const MAX_SUGGESTIONS = 5;
 
-class SearchSuggestionList extends React.Component {
+class SearchSuggestionList extends React.PureComponent {
   render() {
-    const isOpen = this.props.isOpen;
-    const suggestions = this.props.suggestions;
+    const {isOpen} = this.props;
+    const {suggestions} = this.props;
 
     if (!isOpen || suggestions.length === 0) {
       return null;
     }
 
-    let hasMoreResults = suggestions.length - MAX_SUGGESTIONS > 0;
+    const hasMoreResults = suggestions.length - MAX_SUGGESTIONS > 0;
 
     return (
       <List
@@ -30,7 +30,7 @@ class SearchSuggestionList extends React.Component {
           COURSES
         </Text>
         ;
-        {suggestions.slice(0, MAX_SUGGESTIONS).map((suggestion) => {
+        {suggestions.slice(0, MAX_SUGGESTIONS).map(suggestion => {
           return (
             <SearchSuggestionListItem
               key={suggestion.code}
@@ -51,7 +51,7 @@ class SearchSuggestionList extends React.Component {
 
 SearchSuggestionList.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  suggestions: PropTypes.array.isRequired,
+  suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default SearchSuggestionList;

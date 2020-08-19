@@ -8,7 +8,7 @@ import {
   InputLeftElement,
   InputRightElement,
 } from '@chakra-ui/core';
-import { FaSearch } from 'react-icons/fa';
+import {FaSearch} from 'react-icons/fa';
 import SearchSuggestionList from './SearchSuggestionList';
 
 // TODO: arrow key controls
@@ -20,7 +20,7 @@ class SearchBar extends React.Component {
       local: [],
       queryTokenizer: Bloodhound.tokenizers.nonword,
       datumTokenizer: Bloodhound.tokenizers.nonword,
-      identify: (course) => {
+      identify: course => {
         return course.code;
       },
       remote: {
@@ -33,7 +33,7 @@ class SearchBar extends React.Component {
 
     this.componentRef = React.createRef();
 
-    this.state = { suggestions: [], focused: false };
+    this.state = {suggestions: [], focused: false};
 
     this.handleClick = this.handleClick.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -48,28 +48,30 @@ class SearchBar extends React.Component {
     document.removeEventListener('mousedown', this.handleClick);
   }
 
-  handleClick(event) {
-    if (!this.componentRef.current.contains(event.target)) {
-      this.setState({ focused: false });
-    }
-  }
-
   onChange(event) {
     this.bloodhound.search(
       event.target.value,
       () => {},
       // async request
-      (results) => {
-        this.setState({ suggestions: results });
+      results => {
+        this.setState({suggestions: results});
       }
     );
   }
 
   onFocus() {
-    this.setState({ focused: true });
+    this.setState({focused: true});
+  }
+
+  handleClick(event) {
+    if (!this.componentRef.current.contains(event.target)) {
+      this.setState({focused: false});
+    }
   }
 
   render() {
+    const {suggestions, focused} = this.state;
+
     return (
       <div ref={this.componentRef}>
         <InputGroup size="lg" mt="2em">
@@ -81,11 +83,7 @@ class SearchBar extends React.Component {
             onFocus={this.onFocus}
             onChange={this.onChange}
             placeholder="Search for a course..."
-            borderRadius={
-              this.state.focused && this.state.suggestions.length
-                ? '5px 5px 0 0'
-                : '5px'
-            }
+            borderRadius={focused && suggestions.length ? '5px 5px 0 0' : '5px'}
             borderWidth="2px"
             focusBorderColor="purple.500"
             aria-label="Search bar"
@@ -99,10 +97,7 @@ class SearchBar extends React.Component {
           </InputRightElement>
         </InputGroup>
 
-        <SearchSuggestionList
-          isOpen={this.state.focused}
-          suggestions={this.state.suggestions}
-        />
+        <SearchSuggestionList isOpen={focused} suggestions={suggestions} />
       </div>
     );
   }
