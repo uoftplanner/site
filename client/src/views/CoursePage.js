@@ -21,19 +21,19 @@ function CoursePage(props) {
   if (courseData) {
     return (
       <div>
-        <CourseInfoCard
-          top="180px"
-          right="61px"
-          prerequisites={courseData.prerequisites}
-          corequisites={courseData.corequisites}
-          exclusions={courseData.exclusions}
-        />
-
         <CourseHeader
           code={courseData.code}
           name={courseData.name}
           campus={courseData.campus}
           term={courseData.term}
+        />
+
+        <CourseInfoCard
+          top="140px"
+          right="61px"
+          prerequisites={courseData.prerequisites}
+          corequisites={courseData.corequisites}
+          exclusions={courseData.exclusions}
         />
 
         <CourseDescription description={courseData.description} />
