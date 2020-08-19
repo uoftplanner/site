@@ -14,16 +14,19 @@ class Header extends React.Component {
           site name
         </Heading>
 
-        <Flex alignItems="center" flexGrow="1" marginLeft="94px">
+        <Flex display={{"base": "none", "md": "flex"}}
+          alignItems="center"
+          flexGrow="1"
+          marginLeft="94px">
           <MenuItem>courses</MenuItem>
           <MenuItem lastItem={true}>about</MenuItem>
         </Flex>
 
         <Flex alignItems="center">
-          <Button marginRight="38px" variant="outline">
+          <Button marginRight={{"base": "0px", "md": "38px"}} variant="outline">
             login
           </Button>
-          <Button>sign up</Button>
+          <Button display={{"base": "none", "md": "flex"}}>sign up</Button>
         </Flex>
       </Flex>
     );
