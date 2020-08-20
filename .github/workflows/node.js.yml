@@ -28,7 +28,6 @@ jobs:
       - run: cd client
       - run: npm ci
       - run: npm install eslint-config-airbnb --only=dev
-      - run: npm ls
       - run: cd ..
       - run: npx eslint . --ignore-path .gitignore
       - run: cd client
