@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
+import {Box} from '@chakra-ui/core'
 import CourseHeader from '../component/CourseHeader';
 import CourseDescription from '../component/CourseDescription';
 import CourseInfoCard from '../component/CourseInfoCard';
+import Schedule from '../component/Schedule'
 
 function CoursePage(props) {
   const courseId = props.match.params.courseId;
@@ -20,7 +22,7 @@ function CoursePage(props) {
 
   if (courseData) {
     return (
-      <div>
+      <React.Fragment>
         <CourseHeader
           code={courseData.code}
           name={courseData.name}
@@ -38,8 +40,10 @@ function CoursePage(props) {
 
         <CourseDescription description={courseData.description} />
 
-        {/*TODO: create schedule component */}
-      </div>
+        <Box background="gray.200" height="100%">
+            <Schedule activities={courseData.schedule} />
+        </Box>
+      </React.Fragment>
     );
   } else {
     //TODO: add a loading view or skeleton placeholder
