@@ -17,8 +17,8 @@ client.on('connect', () => {
 
 /* eslint-disable no-underscore-dangle */
 // add support to return fields since redredisearch only returns an array of indices
-Query.prototype.end = fn => {
-  const key = this.search;
+Query.prototype.end = function end(fn) {
+  const {key} = this.search;
   const db = this.search.client;
   const query = this.str;
   const args = [key, query, 'RETURN', '2', 'code', 'name'];
@@ -37,5 +37,7 @@ Query.prototype.end = fn => {
 
   return this;
 };
+
+Query.prototype.end.bind(Query.prototype);
 
 module.exports = client;
