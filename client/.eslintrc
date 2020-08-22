@@ -9,7 +9,7 @@
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "prettier/prettier": ["error"],
     "prefer-arrow-callback": ["error", {"allowNamedFunctions": true}],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}]
   },
   "root": true,
   "settings": {
