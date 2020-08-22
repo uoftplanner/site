@@ -40,7 +40,7 @@ function CoursePage(props) {
 
         <CourseDescription description={courseData.description} />
 
-        <Box background="gray.200" height="100%">
+        <Box background="#F4F4F4">
             <Schedule activities={courseData.schedule} />
         </Box>
       </React.Fragment>

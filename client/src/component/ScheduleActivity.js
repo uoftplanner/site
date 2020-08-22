@@ -8,14 +8,14 @@ class ScheduleActivity extends React.Component {
 
         return (
             <tr>
-                <td>{activity.name}</td>
-                <td>{activity.dayAndTime}</td>
-                <td>{activity.instructor}</td>
-                <td>{activity.location}</td>
-                <td>{activity.classSize}</td>
-                <td>{activity.enrolment}</td>
-                <td>{activity.waitlist}</td>
-                <td>{activity.delivery}</td>
+                <td style={{padding: "10px 0"}}>{activity.name}</td>
+                <td style={{padding: "10px 0"}}>{activity.dayAndTime}</td>
+                <td style={{padding: "10px 0"}}>{activity.location}</td>
+                <td style={{padding: "10px 0"}}>{activity.instructor}</td>
+                <td style={{padding: "10px 0"}}>{activity.classSize}</td>
+                {/*<td style={{padding: "10px 0"}}>{activity.enrolment}</td>*/}
+                <td style={{padding: "10px 0"}}>{activity.waitlist ? "YES" : "NO"}</td>
+                <td style={{padding: "10px 0"}}>{activity.delivery}</td>
             </tr>
         );
     }
