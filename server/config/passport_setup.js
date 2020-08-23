@@ -2,6 +2,7 @@ const passport = require('passport');
 const User = require('../models/User');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 const OAuthKeys = require('./key').oauth;
 
 passport.serializeUser((user, cb) => {
@@ -77,6 +78,17 @@ passport.use(new FacebookStrategy({
       } else {
         return cb(err, user);
       }
+    });
+  }
+));
+
+passport.use(new LocalStrategy(
+  function (email, password, cb) {
+    User.findOne({email: email}, (err, user) => {
+      if (err) {return cb(err);}
+      if (!user) {return cb(null, false);}
+      if (!user.verifyPassword(password)) {return cb(null, false);}
+      return cb(null, user);
     });
   }
 ));
