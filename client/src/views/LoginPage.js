@@ -9,7 +9,7 @@ import {
   Button,
   InputGroup,
   InputRightElement,
-  Divider,
+  Divider
 } from '@chakra-ui/core';
 
 import {FaFacebook, FaGoogle} from 'react-icons/fa';
@@ -78,20 +78,22 @@ function LoginPage(props) {
           <Text mt={4} textAlign="center" fontSize="xl" fontWeight="600">
             OR
           </Text>
-					{/* TODO: Add Facebook and Google integration */}
+          {/* TODO: Add Facebook and Google integration */}
           <Button mt={4} leftIcon={<FaFacebook />} colorScheme="facebook" width="100%">
             Login with Facebook
           </Button>
-          <Button
-            mt={4}
-            leftIcon={<FaGoogle />}
-            backgroundColor="#4285F4"
-            _hover={{bg: '#296bd9'}}
-            color="white"
-            width="100%"
-          >
-            Login with Google
-          </Button>
+          <a href="/auth/google">
+            <Button
+              mt={4}
+              leftIcon={<FaGoogle />}
+              backgroundColor="#4285F4"
+              _hover={{bg: '#296bd9'}}
+              color="white"
+              width="100%"
+            >
+              Login with Google
+            </Button>
+          </a>
           <Divider mt={8} />
           <Text mt={8} textAlign="center" fontSize="xl">
             New to site name? <u>Sign up</u>
