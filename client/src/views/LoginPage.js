@@ -78,10 +78,11 @@ function LoginPage(props) {
           <Text mt={4} textAlign="center" fontSize="xl" fontWeight="600">
             OR
           </Text>
-          {/* TODO: Add Facebook and Google integration */}
-          <Button mt={4} leftIcon={<FaFacebook />} colorScheme="facebook" width="100%">
-            Login with Facebook
+          <a href="/auth/facebook">
+            <Button mt={4} leftIcon={<FaFacebook />} colorScheme="facebook" width="100%">
+              Login with Facebook
           </Button>
+          </a>
           <a href="/auth/google">
             <Button
               mt={4}

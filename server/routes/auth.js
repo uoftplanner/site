@@ -8,7 +8,20 @@ router.get('/google',
 
 /* GET Google redirect */
 router.get('/google/redirect',
-  passport.authenticate('google', {failureRedirect: '/login'}),
+  passport.authenticate('google', {failureRedirect: 'http://localhost:3000/login/'}),
+  (req, res) => {
+    // Successful authentication, redirect home.
+    // TODO: for production, use actual link to homepage
+    res.redirect('http://localhost:3000/');
+  });
+
+/* GET login with Facebook */
+router.get('/facebook',
+  passport.authenticate('facebook'));
+
+/* GET Facebook redirect */
+router.get('/facebook/redirect',
+  passport.authenticate('facebook', {failureRedirect: 'http://localhost:3000/login/'}),
   (req, res) => {
     // Successful authentication, redirect home.
     // TODO: for production, use actual link to homepage
