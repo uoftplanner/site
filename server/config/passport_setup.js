@@ -55,5 +55,28 @@ passport.use(new FacebookStrategy({
 },
   function (accessToken, refreshToken, profile, cb) {
     console.log(profile);
+    User.findOne({facebookId: profile.id}, (err, user) => {
+      if (err) {
+        return db(err);
+      }
+
+      if (!user) {
+        user = new User({
+          name: profile._json.first_name + ' ' + profile._json.last_name,
+          picture: profile._json.picture.data.url,
+          email: profile._json.email,
+          facebookId: profile.id,
+        });
+
+        user.save((err) => {
+          if (err) {
+            console.log(err);
+          }
+          return cb(err, user);
+        });
+      } else {
+        return cb(err, user);
+      }
+    });
   }
 ));

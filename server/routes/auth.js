@@ -17,7 +17,7 @@ router.get('/google/redirect',
 
 /* GET login with Facebook */
 router.get('/facebook',
-  passport.authenticate('facebook'));
+  passport.authenticate('facebook', {scope: ['email']}));
 
 /* GET Facebook redirect */
 router.get('/facebook/redirect',
