@@ -36,7 +36,9 @@ function Header() {
       <UserContext.Consumer>
         {value => {
           console.log(value);
-          if (value.loggedIn) {
+          if (value.isLoading) {
+            return (<div></div>);
+          } else if (value.loggedIn) {
             return (
               <Menu>
                 <MenuButton>

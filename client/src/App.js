@@ -14,6 +14,7 @@ class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       loggedIn: false,
       user: {},
     };
@@ -25,9 +26,9 @@ class App extends React.PureComponent {
       .then(response => {
         console.log(response);
         if (response.data.success) {
-          this.setState({loggedIn: true, user: response.data.user});
+          this.setState({isLoading: false, loggedIn: true, user: response.data.user});
         } else {
-          this.setState({loggedIn: false});
+          this.setState({isLoading: false, loggedIn: false});
         }
       })
       .catch(err => {
@@ -37,6 +38,7 @@ class App extends React.PureComponent {
 
   render() {
     const value = {
+      isLoading: this.state.isLoading,
       loggedIn: this.state.loggedIn,
       user: this.state.user,
     };
