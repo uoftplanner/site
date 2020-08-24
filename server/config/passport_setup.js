@@ -84,7 +84,11 @@ passport.use(new FacebookStrategy({
 
 passport.use(new LocalStrategy(
   function (email, password, cb) {
+    console.log(email);
+    console.log(password);
     User.findOne({email: email}, (err, user) => {
+      console.log(user);
+      console.log(user.comparePassword(password));
       if (err) {return cb(err);}
       if (!user) {return cb(null, false);}
       if (!user.comparePassword(password)) {return cb(null, false);}

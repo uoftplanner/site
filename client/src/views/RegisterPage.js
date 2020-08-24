@@ -53,7 +53,6 @@ function RegisterPage() {
         setTimeout(() => {
           var cleanEmail = values.email;
           cleanEmail.trim();
-          cleanEmail.toLowerCase();
           let dataToSubmit = {
             name: values.name,
             email: values.email,

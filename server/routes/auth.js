@@ -33,11 +33,12 @@ router.get('/facebook/redirect',
 router.post('/login',
   passport.authenticate('local', {failureRedirect: 'http://localhost:3000/login/'}),
   (req, res) => {
+    console.log(req);
     res.redirect('http://localhost:3000/');
   });
 
 /* POST Local strategy (email and password) register */
-router.post("/register", (req, res) => {
+router.post('/register', (req, res) => {
 
   const user = new User(req.body);
 
