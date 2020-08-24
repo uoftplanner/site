@@ -11,7 +11,7 @@ import {
   InputRightElement,
   Divider
 } from '@chakra-ui/core';
-
+import {Link} from 'react-router-dom';
 import {FaFacebook, FaGoogle} from 'react-icons/fa';
 
 const backgroundStyle = {
@@ -42,11 +42,11 @@ function LoginPage(props) {
           <Heading as="h1" size="xl" textAlign="center">
             Login
           </Heading>
-          <FormControl id="email" mt={4}>
+          <FormControl id="email" mt={2}>
             <FormLabel>Email</FormLabel>
             <Input focusBorderColor="purple.500" type="email" placeholder="Enter email address" />
           </FormControl>
-          <FormControl id="password" mt={4}>
+          <FormControl id="password" mt={2}>
             <FormLabel>Password</FormLabel>
             <InputGroup>
               <Input
@@ -75,17 +75,17 @@ function LoginPage(props) {
           >
             Login
           </Button>
-          <Text mt={4} textAlign="center" fontSize="xl" fontWeight="600">
+          <Text mt={2} textAlign="center" fontSize="xl" fontWeight="600">
             OR
           </Text>
           <a href="/auth/facebook">
-            <Button mt={4} leftIcon={<FaFacebook />} colorScheme="facebook" width="100%">
+            <Button mt={2} leftIcon={<FaFacebook />} colorScheme="facebook" width="100%">
               Login with Facebook
           </Button>
           </a>
           <a href="/auth/google">
             <Button
-              mt={4}
+              mt={2}
               leftIcon={<FaGoogle />}
               backgroundColor="#4285F4"
               _hover={{bg: '#296bd9'}}
@@ -97,7 +97,7 @@ function LoginPage(props) {
           </a>
           <Divider mt={8} />
           <Text mt={8} textAlign="center" fontSize="xl">
-            New to site name? <u>Sign up</u>
+            New to site name? <Link to="/register"><u>Sign up</u></Link>
           </Text>
         </Box>
       </Box>

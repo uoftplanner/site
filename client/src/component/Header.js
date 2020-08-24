@@ -27,7 +27,9 @@ function Header() {
             login
           </Button>
         </Link>
-        <Button display={{base: 'none', md: 'flex'}}>sign up</Button>
+        <Link to="/register">
+          <Button display={{base: 'none', md: 'flex'}}>sign up</Button>
+        </Link>
       </Flex>
     </Flex>
   );

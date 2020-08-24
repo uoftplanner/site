@@ -6,6 +6,7 @@ import './App.css';
 import Header from './component/Header';
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
+import RegisterPage from './views/RegisterPage';
 
 class App extends React.PureComponent {
   render() {
@@ -17,6 +18,7 @@ class App extends React.PureComponent {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/register" component={RegisterPage} />
           </Switch>
         </Router>
       </ChakraProvider>
