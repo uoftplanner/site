@@ -4,6 +4,8 @@ const passport = require('passport');
 const User = require('../models/User');
 const auth_middleware = require('../middleware/auth_middleware');
 
+/* GET /auth/ retrieve user info */
+//TODO: remove password and other unnecessary info from req.user object
 router.get('/', auth_middleware, (req, res) => {
   return res.status(200).json({success: true, user: req.user});
 });
@@ -39,13 +41,22 @@ router.get(
 /* POST Local strategy (email and password) login */
 router.post(
   '/login', (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
-      if (err) {return next(err);}
-      if (!user) {return res.status(401).json({success: false, msg: info.message});}
+    passport.authenticate('local', {
+      failureRedirect: 'http://localhost:3000/login/',
+      successRedirect: 'http://localhost:3000/'
+    }, (err, user, info) => {
+      if (err) {console.log(err); return next(err);}
+      if (!user) {console.log(user); return res.status(401).json({success: false, msg: info.message});}
       return res.status(200).json({success: true});
     })(req, res, next)
   }
 );
+
+/* GET logout from app */
+router.get('/logout', (req, res) => {
+  req.logout();
+  return res.status(200).json({success: true});
+});
 
 /* router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
   console.log(req);

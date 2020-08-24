@@ -47,9 +47,9 @@ function Header() {
                 </MenuButton>
                 <MenuList>
                   <ChakraMenuItem>Profile</ChakraMenuItem>
-                  <ChakraMenuItem as="a" href="#">
+                  <ChakraMenuItem as="a" href="/auth/logout">
                     Logout
-                </ChakraMenuItem>
+                  </ChakraMenuItem>
                 </MenuList>
               </Menu>
             );
