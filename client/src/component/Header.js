@@ -58,11 +58,13 @@ function Header() {
           }
           return (
             <Flex alignItems="center">
-              <Link to="/login">
-                <Button marginRight={{base: '0px', md: '38px'}} variant="outline">
-                  login
-                </Button>
-              </Link>
+              <Box marginRight={{base: '0px', md: '38px'}}>
+                <Link to="/login">
+                  <Button variant="outline">
+                    login
+                  </Button>
+                </Link>
+              </Box>
               <Link to="/register">
                 <Button display={{base: 'none', md: 'flex'}}>sign up</Button>
               </Link>
