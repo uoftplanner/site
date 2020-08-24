@@ -3,8 +3,14 @@ import {Container, Text} from '@chakra-ui/core';
 import PropTypes from 'prop-types';
 import ScheduleActivity from './ScheduleActivity';
 
+const tableStyle = {
+    textAlign: 'left',
+    borderRadius:'8px',
+}
+
 const thStyle = {
-    padding: '15px 0',
+    padding: '15px',
+    paddingRight: '0',
     border: '2px solid #E8E8E8',
     borderStyle: 'solid none',
 };
@@ -19,10 +25,17 @@ class Schedule extends React.Component {
 
         return (
             <Container centerContent maxW={1320}>
-                <table bgcolor="white" width="100%" style={{textAlign: 'left', borderRadius:'8px'}}>
+                <table bgcolor="white" width="100%" style={tableStyle}>
                     <thead>
                     <tr>
-                        <Text as="th" padding="12px 0">COURSE SCHEDULE</Text>
+                        <Text
+                          as="th"
+                          padding="12px 15px"
+                          fontSize="sm"
+                          fontWeight="600"
+                          color="gray.400">
+                          COURSE SCHEDULE
+                        </Text>
                     </tr>
 
                     <tr>

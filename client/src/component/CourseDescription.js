@@ -4,7 +4,7 @@ import Container from './Container';
 
 function CourseDescription(props) {
   return (
-    <Box m="1.5em 0 1.5em 0" background="white">
+    <Box p="1.5em 0 1.5em 0" background="white">
       <Container>
         <Text fontSize="sm" fontWeight="700" color="gray.400" mb="0.25em">
           DESCRIPTION

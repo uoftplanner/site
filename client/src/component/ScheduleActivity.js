@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const tdStyle = {
+    padding: '10px 0',
+    paddingLeft: '15px',
+}
+
 class ScheduleActivity extends React.Component {
 
     render() {
@@ -8,14 +13,14 @@ class ScheduleActivity extends React.Component {
 
         return (
             <tr>
-                <td style={{padding: "10px 0"}}>{activity.name}</td>
-                <td style={{padding: "10px 0"}}>{activity.dayAndTime}</td>
-                <td style={{padding: "10px 0"}}>{activity.location}</td>
-                <td style={{padding: "10px 0"}}>{activity.instructor}</td>
-                <td style={{padding: "10px 0"}}>{activity.classSize}</td>
-                {/*<td style={{padding: "10px 0"}}>{activity.enrolment}</td>*/}
-                <td style={{padding: "10px 0"}}>{activity.waitlist ? "YES" : "NO"}</td>
-                <td style={{padding: "10px 0"}}>{activity.delivery}</td>
+                <td style={tdStyle}>{activity.name}</td>
+                <td style={tdStyle}>{activity.dayAndTime}</td>
+                <td style={tdStyle}>{activity.location}</td>
+                <td style={tdStyle}>{activity.instructor}</td>
+                <td style={tdStyle}>{activity.classSize}</td>
+                {/*<td style={tdStyle}>{activity.enrolment}</td>*/}
+                <td style={tdStyle}>{activity.waitlist ? "YES" : "NO"}</td>
+                <td style={tdStyle}>{activity.delivery}</td>
             </tr>
         );
     }

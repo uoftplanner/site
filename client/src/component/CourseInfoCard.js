@@ -22,38 +22,36 @@ function CourseInfoCard(props) {
       >
         <Text fontSize="sm" fontWeight="700" color="gray.400">
           PREREQUISITES
-      </Text>
-        <Text mb="0.5em">{props.prerequisites}</Text>
+        </Text>
+        <Text mb="0.5em">{props.prerequisites || 'N/A'}</Text>
 
         <Text fontSize="sm" fontWeight="700" color="gray.400">
           COREQUISITES
-      </Text>
+        </Text>
         <Text mb="0.5em">{props.corequisites || 'N/A'}</Text>
 
         <Text fontSize="sm" fontWeight="700" color="gray.400">
           EXCLUSIONS
-      </Text>
+        </Text>
         <Text mb="0.5em">{props.exclusions || 'N/A'}</Text>
       </Box>
 
       {/* INFO SECTION (MOBILE) */}
-      <Box
-        display={{base: 'initial', lg: 'none'}}
-      >
+      <Box display={{base: 'initial', lg: 'none'}}>
         <Container>
           <Text fontSize="sm" fontWeight="700" color="gray.400" mt="1.5em">
             PREREQUISITES
-      </Text>
+          </Text>
           <Text mb="0.5em">{props.prerequisites}</Text>
 
           <Text fontSize="sm" fontWeight="700" color="gray.400">
             COREQUISITES
-      </Text>
+          </Text>
           <Text mb="0.5em">{props.corequisites || 'N/A'}</Text>
 
           <Text fontSize="sm" fontWeight="700" color="gray.400">
             EXCLUSIONS
-      </Text>
+          </Text>
           <Text mb="0.5em">{props.exclusions || 'N/A'}</Text>
         </Container>
       </Box>

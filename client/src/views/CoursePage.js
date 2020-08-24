@@ -11,6 +11,8 @@ function CoursePage(props) {
   const [courseData, setcourseData] = useState(false);
 
   useEffect(() => {
+    document.body.style.backgroundColor = "#F4F4F4";
+
     Axios.get(`/api/course/${courseId}`).then(response => {
       if (response.status === 200) {
         setcourseData(response.data);
@@ -40,7 +42,7 @@ function CoursePage(props) {
 
         <CourseDescription description={courseData.description} />
 
-        <Box background="#F4F4F4">
+        <Box height="100%" p="27px 0">
             <Schedule activities={courseData.schedule} />
         </Box>
       </React.Fragment>
