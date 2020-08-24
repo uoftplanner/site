@@ -75,6 +75,7 @@ router.post('/login', (req, res, next) => {
 /* GET logout from app */
 router.get('/logout', (req, res) => {
   req.logout();
+  res.redirect('http://localhost:3000/');
   return res.status(200).json({success: true});
 });
 
