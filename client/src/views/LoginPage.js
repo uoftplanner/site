@@ -10,7 +10,8 @@ import {
   Button,
   InputGroup,
   InputRightElement,
-  Divider
+  Divider,
+  useToast
 } from '@chakra-ui/core';
 import {Formik, Field} from 'formik';
 import {Link} from 'react-router-dom';
@@ -31,6 +32,7 @@ const backgroundStyle = {
 function LoginPage(props) {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const toast = useToast();
 
   return (
     <Formik
@@ -50,11 +52,36 @@ function LoginPage(props) {
           };
           Axios.post('/auth/login', dataToSubmit)
             .then((response) => {
-              //TODO: auto login user after registering or redirect
-              console.log(response);
+              // If login was successful
+              if (response.data.success) {
+                //TODO: use history.push or location.href?
+                //props.history.push('/');
+                window.location.href = '/';
+              } else {
+                // Login failed not due to incorrect email or password
+                toast({
+                  title: "Login failed.",
+                  description: "Invalid email or password.",
+                  position: "top",
+                  status: "error",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }
             })
             .catch((err) => {
-              console.log(err);
+              // Login failed due to incorrect email or password, or server error
+              // Return the error message from server
+              if (err.response.data) {
+                toast({
+                  title: "Login failed.",
+                  description: err.response.data.msg || "Server error.",
+                  position: "top",
+                  status: "error",
+                  duration: 9000,
+                  isClosable: true,
+                });
+              }
             });
           setSubmitting(false);
         }, 500);

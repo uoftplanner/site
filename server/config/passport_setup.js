@@ -92,27 +92,27 @@ passport.use(
   new LocalStrategy({usernameField: 'email'}, (email, password, done) => {
     User.findOne({email}, (err, user) => {
       if (err) {
-        done(err);
-        return;
+        return done(err);
       }
 
       if (!user) {
-        done(null, false);
-        return;
+        return done(null, false, {
+          message: 'Invalid email address.'
+        });
       }
 
       user.comparePassword(password, (err, match) => {
         if (err) {
-          done(err);
-          return;
+          return done(err);
         }
 
         if (!match) {
-          done(null, false);
-          return;
+          return done(null, false, {
+            message: 'Invalid password.'
+          });
         }
 
-        done(null, user);
+        return done(null, user);
       });
     });
   })

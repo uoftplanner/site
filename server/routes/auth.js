@@ -34,11 +34,13 @@ router.get(
 
 /* POST Local strategy (email and password) login */
 router.post(
-  '/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  })
+  '/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {return next(err);}
+      if (!user) {return res.status(401).json({success: false, msg: info.message});}
+      return res.status(200).json({success: true});
+    })(req, res, next)
+  }
 );
 
 /* router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
@@ -51,8 +53,8 @@ router.post('/register', (req, res) => {
   const user = new User(req.body);
 
   user.save((err, doc) => {
-    if (err) return res.status(400).send({success: false, err});
-    return res.status(200).send({
+    if (err) return res.status(400).json({success: false, err});
+    return res.status(200).json({
       success: true,
     });
   });
