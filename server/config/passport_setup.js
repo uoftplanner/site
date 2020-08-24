@@ -15,84 +15,105 @@ passport.deserializeUser((id, cb) => {
   });
 });
 
-passport.use(new GoogleStrategy({
-  clientID: OAuthKeys.google.clientId,
-  clientSecret: OAuthKeys.google.clientSecret,
-  callbackURL: '/auth/google/redirect'
-},
-  (accessToken, refreshToken, profile, cb) => {
-    console.log(profile);
-    User.findOne({googleId: profile.id}, (err, user) => {
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: OAuthKeys.google.clientId,
+      clientSecret: OAuthKeys.google.clientSecret,
+      callbackURL: '/auth/google/redirect',
+    },
+    (accessToken, refreshToken, profile, cb) => {
+      console.log(profile);
+      User.findOne({googleId: profile.id}, (err, user) => {
+        if (err) {
+          return db(err);
+        }
+
+        if (!user) {
+          user = new User({
+            name: profile.displayName,
+            picture: profile._json.picture,
+            email: profile._json.email,
+            googleId: profile.id,
+          });
+
+          user.save(err => {
+            if (err) {
+              console.log(err);
+            }
+            return cb(err, user);
+          });
+        } else {
+          return cb(err, user);
+        }
+      });
+    }
+  )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: OAuthKeys.facebook.clientId,
+      clientSecret: OAuthKeys.facebook.clientSecret,
+      callbackURL: '/auth/facebook/redirect',
+      profileFields: ['id', 'email', 'name', 'picture.type(large)'],
+    },
+    (accessToken, refreshToken, profile, cb) => {
+      console.log(profile);
+      User.findOne({facebookId: profile.id}, (err, user) => {
+        if (err) {
+          return cb(err);
+        }
+
+        if (!user) {
+          user = new User({
+            name: `${profile._json.first_name} ${profile._json.last_name}`,
+            picture: profile._json.picture.data.url,
+            email: profile._json.email,
+            facebookId: profile.id,
+          });
+
+          user.save(err => {
+            if (err) {
+              console.log(err);
+            }
+            return cb(err, user);
+          });
+        } else {
+          return cb(err, user);
+        }
+      });
+    }
+  )
+);
+
+passport.use(
+  new LocalStrategy({usernameField: 'email'}, (email, password, done) => {
+    User.findOne({email}, (err, user) => {
       if (err) {
-        return db(err);
+        done(err);
+        return;
       }
 
       if (!user) {
-        user = new User({
-          name: profile.displayName,
-          picture: profile._json.picture,
-          email: profile._json.email,
-          googleId: profile.id,
-        });
-
-        user.save((err) => {
-          if (err) {
-            console.log(err);
-          }
-          return cb(err, user);
-        });
-      } else {
-        return cb(err, user);
-      }
-    });
-  }
-));
-
-passport.use(new FacebookStrategy({
-  clientID: OAuthKeys.facebook.clientId,
-  clientSecret: OAuthKeys.facebook.clientSecret,
-  callbackURL: '/auth/facebook/redirect',
-  profileFields: ['id', 'email', 'name', 'picture.type(large)']
-},
-  function (accessToken, refreshToken, profile, cb) {
-    console.log(profile);
-    User.findOne({facebookId: profile.id}, (err, user) => {
-      if (err) {
-        return db(err);
+        done(null, false);
+        return;
       }
 
-      if (!user) {
-        user = new User({
-          name: profile._json.first_name + ' ' + profile._json.last_name,
-          picture: profile._json.picture.data.url,
-          email: profile._json.email,
-          facebookId: profile.id,
-        });
+      user.comparePassword(password, (err, match) => {
+        if (err) {
+          done(err);
+          return;
+        }
 
-        user.save((err) => {
-          if (err) {
-            console.log(err);
-          }
-          return cb(err, user);
-        });
-      } else {
-        return cb(err, user);
-      }
-    });
-  }
-));
+        if (!match) {
+          done(null, false);
+          return;
+        }
 
-passport.use(new LocalStrategy(
-  function (email, password, cb) {
-    console.log(email);
-    console.log(password);
-    User.findOne({email: email}, (err, user) => {
-      console.log(user);
-      console.log(user.comparePassword(password));
-      if (err) {return cb(err);}
-      if (!user) {return cb(null, false);}
-      if (!user.comparePassword(password)) {return cb(null, false);}
-      return cb(null, user);
+        done(null, user);
+      });
     });
-  }
-));
+  })
+);
