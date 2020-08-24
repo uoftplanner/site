@@ -13,6 +13,7 @@ import {
 import {Formik, Field} from 'formik';
 import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
+import Axios from 'axios';
 import {FaFacebook, FaGoogle} from 'react-icons/fa';
 
 const backgroundStyle = {
@@ -58,8 +59,14 @@ function RegisterPage() {
             email: values.email,
             password: values.password
           };
-
-          //TODO: API request to server to register
+          Axios.post('/auth/register', dataToSubmit)
+            .then((response) => {
+              //TODO: auto login user after registering or redirect
+              console.log(response);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
           setSubmitting(false);
         }, 500);
       }}

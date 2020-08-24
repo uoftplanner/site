@@ -87,7 +87,7 @@ passport.use(new LocalStrategy(
     User.findOne({email: email}, (err, user) => {
       if (err) {return cb(err);}
       if (!user) {return cb(null, false);}
-      if (!user.verifyPassword(password)) {return cb(null, false);}
+      if (!user.comparePassword(password)) {return cb(null, false);}
       return cb(null, user);
     });
   }
