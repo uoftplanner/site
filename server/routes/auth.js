@@ -1,8 +1,12 @@
 const express = require('express');
-
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/User');
+const auth_middleware = require('../middleware/auth_middleware');
+
+router.get('/', auth_middleware, (req, res) => {
+  return res.status(200).json({success: true, user: req.user});
+});
 
 /* GET login with Google */
 router.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
