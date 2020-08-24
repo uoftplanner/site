@@ -8,12 +8,12 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem as ChakraMenuItem
+  MenuItem as ChakraMenuItem,
 } from '@chakra-ui/core';
-import {UserContext} from '../context/UserContext';
 import {Link} from 'react-router-dom';
-import MenuItem from './MenuItem';
 import {FaCaretDown} from 'react-icons/fa';
+import UserContext from '../context/UserContext';
+import MenuItem from './MenuItem';
 
 const headerStyle = {
   padding: '34px 61px',
@@ -34,7 +34,7 @@ function Header() {
       </Flex>
 
       <UserContext.Consumer>
-        {(value) => {
+        {value => {
           console.log(value);
           if (value.loggedIn) {
             return (
@@ -53,20 +53,19 @@ function Header() {
                 </MenuList>
               </Menu>
             );
-          } else {
-            return (
-              <Flex alignItems="center">
-                <Link to="/login">
-                  <Button marginRight={{base: '0px', md: '38px'}} variant="outline">
-                    login
-                </Button>
-                </Link>
-                <Link to="/register">
-                  <Button display={{base: 'none', md: 'flex'}}>sign up</Button>
-                </Link>
-              </Flex>
-            );
           }
+          return (
+            <Flex alignItems="center">
+              <Link to="/login">
+                <Button marginRight={{base: '0px', md: '38px'}} variant="outline">
+                  login
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button display={{base: 'none', md: 'flex'}}>sign up</Button>
+              </Link>
+            </Flex>
+          );
         }}
       </UserContext.Consumer>
     </Flex>

@@ -1,8 +1,8 @@
 const passport = require('passport');
-const User = require('../models/User');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
+const User = require('../models/User');
 const OAuthKeys = require('./key').oauth;
 
 passport.serializeUser((user, cb) => {
@@ -26,7 +26,8 @@ passport.use(
       console.log(profile);
       User.findOne({googleId: profile.id}, (err, user) => {
         if (err) {
-          return db(err);
+          cb(err);
+          return;
         }
 
         if (!user) {
@@ -41,11 +42,14 @@ passport.use(
             if (err) {
               console.log(err);
             }
-            return cb(err, user);
+
+            cb(err, user);
           });
-        } else {
-          return cb(err, user);
+
+          return;
         }
+
+        cb(err, user);
       });
     }
   )
@@ -89,30 +93,36 @@ passport.use(
 );
 
 passport.use(
-  new LocalStrategy({usernameField: 'email'}, (email, password, done) => {
+  new LocalStrategy({usernameField: 'email', session: true}, (email, password, done) => {
     User.findOne({email}, (err, user) => {
       if (err) {
-        return done(err);
+        done(err);
+        return;
       }
 
       if (!user) {
-        return done(null, false, {
-          message: 'Invalid email address.'
+        done(null, false, {
+          message: 'Invalid email address.',
         });
+
+        return;
       }
 
       user.comparePassword(password, (err, match) => {
         if (err) {
-          return done(err);
+          done(err);
+          return;
         }
 
         if (!match) {
-          return done(null, false, {
-            message: 'Invalid password.'
+          done(null, false, {
+            message: 'Invalid password.',
           });
+
+          return;
         }
 
-        return done(null, user);
+        done(null, user);
       });
     });
   })

@@ -5,11 +5,11 @@ module.exports = {
   oauth: {
     google: {
       clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
     },
     facebook: {
       clientId: process.env.FACEBOOK_OAUTH_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_OAUTH_CLIENT_SECRET
-    }
-  }
+      clientSecret: process.env.FACEBOOK_OAUTH_CLIENT_SECRET,
+    },
+  },
 };

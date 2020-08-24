@@ -1,12 +1,13 @@
 const express = require('express');
+
 const router = express.Router();
 const passport = require('passport');
 const User = require('../models/User');
-const auth_middleware = require('../middleware/auth_middleware');
+const authMiddleware = require('../middleware/auth_middleware');
 
 /* GET /auth/ retrieve user info */
-//TODO: remove password and other unnecessary info from req.user object
-router.get('/', auth_middleware, (req, res) => {
+// TODO: remove password and other unnecessary info from req.user object
+router.get('/', authMiddleware, (req, res) => {
   return res.status(200).json({success: true, user: req.user});
 });
 
@@ -39,18 +40,37 @@ router.get(
 );
 
 /* POST Local strategy (email and password) login */
-router.post(
-  '/login', (req, res, next) => {
-    passport.authenticate('local', {
+router.post('/login', (req, res, next) => {
+  passport.authenticate(
+    'local',
+    {
       failureRedirect: 'http://localhost:3000/login/',
-      successRedirect: 'http://localhost:3000/'
-    }, (err, user, info) => {
-      if (err) {console.log(err); return next(err);}
-      if (!user) {console.log(user); return res.status(401).json({success: false, msg: info.message});}
-      return res.status(200).json({success: true});
-    })(req, res, next)
-  }
-);
+      successRedirect: 'http://localhost:3000/',
+    },
+    (err, user, info) => {
+      if (err) {
+        console.log(err);
+        next(err);
+        return;
+      }
+
+      if (!user) {
+        console.log(user);
+        res.status(401).json({success: false, msg: info.message});
+        return;
+      }
+
+      req.login(user, err => {
+        if (err) {
+          next(err);
+          return;
+        }
+
+        res.status(200).json({success: true});
+      });
+    }
+  )(req, res, next);
+});
 
 /* GET logout from app */
 router.get('/logout', (req, res) => {
@@ -67,11 +87,12 @@ router.get('/logout', (req, res) => {
 router.post('/register', (req, res) => {
   const user = new User(req.body);
 
-  user.save((err, doc) => {
-    if (err) return res.status(400).json({success: false, err});
-    return res.status(200).json({
-      success: true,
-    });
+  user.save(err => {
+    if (err) {
+      return res.status(400).json({success: false, err});
+    }
+
+    return res.status(200).json({success: true});
   });
 });
 

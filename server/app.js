@@ -14,7 +14,8 @@ const usersRouter = require('./routes/users');
 const coursesRouter = require('./routes/courses');
 
 const db = keys.mongoUri;
-mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose
+  .connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('MongoDB connected.'))
   .catch(err => console.log(err));
 
@@ -26,11 +27,13 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cookieSession({
-  // 1 day
-  maxAge: 24 * 60 * 60 * 1000,
-  keys: [keys.cookieKey]
-}));
+app.use(
+  cookieSession({
+    // 1 day
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey],
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
