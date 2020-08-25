@@ -61,7 +61,7 @@ router.post('/forgot', (req, res) => {
   }
 });
 
-router.get('/reset/:ident/:today-:hash', (req, res) => {
+router.get('/check/:ident/:today-:hash', (req, res) => {
 
   try {
 
@@ -101,10 +101,7 @@ router.get('/reset/:ident/:today-:hash', (req, res) => {
         return res.status(401).json({success: false, err: 'The link is invalid.'});
       }
 
-      //HERE REDIRECT TO THE CHANGE PASSWORD FORM
-
-      return res.status(200).json({success: true, msg: 'Now we let the user change password.'});
-
+      return res.status(200).json({success: true, msg: 'Please proceed to reset password.'});
     });
   } catch (err) {
     res.status(500).json({success: false, err: 'Unexpected error during the password reset process: ' + err.message});

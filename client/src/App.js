@@ -10,6 +10,7 @@ import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
 import RegisterPage from './views/RegisterPage';
 import ForgotPassword from './views/ForgotPassword';
+import ResetPassword from './views/ResetPassword';
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -54,6 +55,7 @@ class App extends React.PureComponent {
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/register" component={RegisterPage} />
               <Route exact path="/password/forgot" component={ForgotPassword} />
+              <Route exact path="/password/reset/:ident/:today-:hash" component={ResetPassword} />
             </Switch>
           </Router>
         </UserContext.Provider>
