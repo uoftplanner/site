@@ -10,6 +10,7 @@ const passportSetup = require('./config/passport_setup');
 const keys = require('./config/key');
 
 const authRouter = require('./routes/auth');
+const passwordRouter = require('./routes/password');
 const usersRouter = require('./routes/users');
 const coursesRouter = require('./routes/courses');
 
@@ -39,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/auth', authRouter);
+app.use('/password', passwordRouter);
 app.use('/users', usersRouter);
 app.use('/api', coursesRouter);
 
