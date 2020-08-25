@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
   Box,
   Text,
-  Image,
   Heading,
   FormControl,
   FormLabel,
@@ -29,13 +28,13 @@ const backgroundStyle = {
 
 function ResetPassword(props) {
   const toast = useToast();
+  const ident = props.match.params.ident;
+  const today = props.match.params.today;
+  const hash = props.match.params.hash;
   const [IsLoading, setIsLoading] = useState(true);
   const [ValidLink, setValidLink] = useState(false);
 
   useEffect(() => {
-    const ident = props.match.params.ident;
-    const today = props.match.params.today;
-    const hash = props.match.params.hash;
     Axios.get(`/password/check/${ident}/${today}-${hash}`)
       .then((response) => {
         if (response.data.success) {
@@ -67,6 +66,9 @@ function ResetPassword(props) {
         onSubmit={(values, {setSubmitting, setStatus}) => {
           setTimeout(() => {
             let dataToSubmit = {
+              ident,
+              today,
+              hash,
               password: values.password
             };
             Axios.post('/password/reset', dataToSubmit)
@@ -121,7 +123,6 @@ function ResetPassword(props) {
 
                 {props.status === "submitted" ?
                   <div>
-                    <Image m="auto auto 2em auto" width="150px" src="../undraw_Mail_sent_re_0ofv.svg" />
                     <Text mb="1em">
                       😀 Password successfully reset! Please <Link to="/login">login with your new password</Link>.
                     </Text>

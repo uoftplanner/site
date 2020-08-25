@@ -109,5 +109,62 @@ router.get('/check/:ident/:today-:hash', (req, res) => {
   }
 });
 
-module.exports = router;
+router.post('/reset', (req, res) => {
 
+  try {
+
+    // Check if the link in not out of date
+    const today = base64Decode(req.body.today);
+    const then = moment(today);
+    const now = moment().utc();
+    const timeSince = now.diff(then, 'hours');
+    if (timeSince > 2) {
+      res.status(401).json({success: false, err: 'The link is invalid.'});
+      return;
+    }
+
+    const userId = base64Decode(req.body.ident);
+
+    User.findOne({_id: userId}, (err, user) => {
+      if (err) {
+        return res.status(401).json({success: false, err});
+      }
+
+      if (!user) {
+        return res.status(401).json({success: false, err: 'Invalid email address.'});
+      }
+
+      // Hash again all the data to compare it with the link
+      // The link in invalid when:
+      // 2. If the salt is changed, the user has already changed the password
+      const data = {
+        today: req.body.today,
+        userId: user._id,
+        password: user.password,
+        email: user.email
+      };
+      const hash = sha256(JSON.stringify(data), passwordResetKey);
+
+      if (hash !== req.body.hash) {
+        return res.status(401).json({success: false, err: 'The link is invalid.'});
+      }
+
+      // UPDATE THE PASSWORD HERE
+      user.password = req.body.password;
+
+      user.save((err, doc) => {
+        if (err) {
+          res.status(500).json({success: false, err: 'Unexpected error during the password reset process: ' + err.message});
+          return;
+        }
+
+        return res.status(200).json({success: true, msg: 'Password successfully reset!'});
+      });
+    });
+  } catch (err) {
+    res.status(500).json({success: false, err: 'Unexpected error during the password reset process: ' + err.message});
+    return;
+  }
+});
+
+module.exports = router;
