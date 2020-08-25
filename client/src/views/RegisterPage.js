@@ -135,12 +135,12 @@ function RegisterPage() {
                   size="lg"
                   mt={8}
                   colorScheme="purple"
-                  isLoading={props.isSubmitting} //TODO: use Formik
+                  isLoading={props.isSubmitting}
                   type="submit"
                   width="100%"
                 >
                   Register
-          </Button>
+                </Button>
               </form>
               <Text mt={2} textAlign="center" fontSize="xl" fontWeight="600">
                 OR

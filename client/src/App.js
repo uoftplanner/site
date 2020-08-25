@@ -9,6 +9,7 @@ import Header from './component/Header';
 import HomePage from './views/HomePage';
 import LoginPage from './views/LoginPage';
 import RegisterPage from './views/RegisterPage';
+import ForgotPassword from './views/ForgotPassword';
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -52,6 +53,7 @@ class App extends React.PureComponent {
               <Route exact path="/" component={HomePage} />
               <Route exact path="/login" component={LoginPage} />
               <Route exact path="/register" component={RegisterPage} />
+              <Route exact path="/password/forgot" component={ForgotPassword} />
             </Switch>
           </Router>
         </UserContext.Provider>

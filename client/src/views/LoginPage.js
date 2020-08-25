@@ -134,26 +134,28 @@ function LoginPage(props) {
                   )}
                 </Field>
                 <Text mt={2} textAlign="right" color="gray.500">
-                  Forgot password?
-          </Text>
+                  <Link to="/password/forgot">
+                    Forgot password?
+                  </Link>
+                </Text>
                 <Button
                   size="lg"
                   mt={8}
                   colorScheme="purple"
-                  isLoading={props.isSubmitting} //TODO: use Formik
+                  isLoading={props.isSubmitting}
                   type="submit"
                   width="100%"
                 >
                   Login
-          </Button>
+                </Button>
               </form>
               <Text mt={2} textAlign="center" fontSize="xl" fontWeight="600">
                 OR
-          </Text>
+              </Text>
               <a href="/auth/facebook">
                 <Button mt={2} leftIcon={<FaFacebook />} colorScheme="facebook" width="100%">
                   Login with Facebook
-          </Button>
+                </Button>
               </a>
               <a href="/auth/google">
                 <Button
@@ -165,7 +167,7 @@ function LoginPage(props) {
                   width="100%"
                 >
                   Login with Google
-            </Button>
+                </Button>
               </a>
               <Divider mt={8} />
               <Text mt={8} textAlign="center" fontSize="xl">

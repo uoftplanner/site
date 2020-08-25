@@ -35,7 +35,7 @@ router.post('/forgot', (req, res) => {
       }
 
       if (!user) {
-        return res.status(401).json({success: false, msg: 'Invalid email address.'});
+        return res.status(401).json({success: false, err: 'Invalid email address.'});
       }
 
       // Generate the necessary data for the link
@@ -83,7 +83,7 @@ router.get('/reset/:ident/:today-:hash', (req, res) => {
       }
 
       if (!user) {
-        return res.status(401).json({success: false, msg: 'Invalid email address.'});
+        return res.status(401).json({success: false, err: 'Invalid email address.'});
       }
 
       // Hash again all the data to compare it with the link
