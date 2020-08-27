@@ -49,20 +49,18 @@ router.post('/login', (req, res, next) => {
     },
     (err, user, info) => {
       if (err) {
-        console.log(err);
         next(err);
         return;
       }
 
       if (!user) {
-        console.log(user);
         res.status(401).json({success: false, msg: info.message});
         return;
       }
 
-      req.login(user, err => {
-        if (err) {
-          next(err);
+      req.login(user, loginErr => {
+        if (loginErr) {
+          next(loginErr);
           return;
         }
 
@@ -76,7 +74,6 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('http://localhost:3000/');
-  return res.status(200).json({success: true});
 });
 
 /* router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {
@@ -87,6 +84,8 @@ router.get('/logout', (req, res) => {
 /* POST Local strategy (email and password) register */
 router.post('/register', (req, res) => {
   const user = new User(req.body);
+
+  // TODO: incoming request needs to be sanitized and verified.
 
   user.save(err => {
     if (err) {

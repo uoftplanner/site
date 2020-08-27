@@ -22,35 +22,27 @@ passport.use(
       clientSecret: OAuthKeys.google.clientSecret,
       callbackURL: '/auth/google/redirect',
     },
-    (accessToken, refreshToken, profile, cb) => {
-      console.log(profile);
-      User.findOne({googleId: profile.id}, (err, user) => {
-        if (err) {
-          cb(err);
-          return;
-        }
+    async (accessToken, refreshToken, profile, cb) => {
+      try {
+        const user = await User.findOne({googleId: profile.id}).exec();
 
         if (!user) {
-          user = new User({
+          const newUser = new User({
             name: profile.displayName,
             picture: profile._json.picture,
             email: profile._json.email,
             googleId: profile.id,
           });
 
-          user.save(err => {
-            if (err) {
-              console.log(err);
-            }
-
-            cb(err, user);
-          });
-
+          await newUser.save();
+          cb(null, newUser);
           return;
         }
 
-        cb(err, user);
-      });
+        cb(null, user);
+      } catch (err) {
+        cb(err);
+      }
     }
   )
 );
@@ -63,67 +55,47 @@ passport.use(
       callbackURL: '/auth/facebook/redirect',
       profileFields: ['id', 'email', 'name', 'picture.type(large)'],
     },
-    (accessToken, refreshToken, profile, cb) => {
-      console.log(profile);
-      User.findOne({facebookId: profile.id}, (err, user) => {
-        if (err) {
-          return cb(err);
-        }
+    async (accessToken, refreshToken, profile, cb) => {
+      try {
+        const user = await User.findOne({facebookId: profile.id}).exec();
 
         if (!user) {
-          user = new User({
+          const newUser = new User({
             name: `${profile._json.first_name} ${profile._json.last_name}`,
             picture: profile._json.picture.data.url,
             email: profile._json.email,
             facebookId: profile.id,
           });
 
-          user.save(err => {
-            if (err) {
-              console.log(err);
-            }
-            return cb(err, user);
-          });
-        } else {
-          return cb(err, user);
+          await newUser.save();
+          cb(null, newUser);
+          return;
         }
-      });
+
+        cb(null, user);
+      } catch (err) {
+        cb(err);
+      }
     }
   )
 );
 
 passport.use(
-  new LocalStrategy({usernameField: 'email', session: true}, (email, password, done) => {
-    User.findOne({email}, (err, user) => {
-      if (err) {
-        done(err);
-        return;
-      }
+  new LocalStrategy({usernameField: 'email', session: true}, async (email, password, done) => {
+    try {
+      const user = await User.findOne({email}).exec();
 
-      if (!user) {
+      if (!user || !(await user.isCorrectPassword(password))) {
         done(null, false, {
-          message: 'Invalid email address.',
+          message: 'Invalid username or password!',
         });
 
         return;
       }
 
-      user.comparePassword(password, (err, match) => {
-        if (err) {
-          done(err);
-          return;
-        }
-
-        if (!match) {
-          done(null, false, {
-            message: 'Invalid password.',
-          });
-
-          return;
-        }
-
-        done(null, user);
-      });
-    });
+      done(null, user);
+    } catch (err) {
+      done(err);
+    }
   })
 );
