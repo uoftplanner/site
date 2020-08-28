@@ -8,7 +8,7 @@ import {
   FormErrorMessage,
   Input,
   Button,
-  Divider
+  Divider,
 } from '@chakra-ui/core';
 import {Formik, Field} from 'formik';
 import {Link} from 'react-router-dom';
@@ -27,27 +27,23 @@ const backgroundStyle = {
 };
 
 function RegisterPage() {
-
   return (
     <Formik
       initialValues={{
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
       }}
       validationSchema={Yup.object().shape({
-        name: Yup.string()
-          .required('Please enter your name'),
-        email: Yup.string()
-          .email('Email is invalid')
-          .required('Please enter an e-mail'),
+        name: Yup.string().required('Please enter your name'),
+        email: Yup.string().email('Email is invalid').required('Please enter an e-mail'),
         password: Yup.string()
           .min(6, 'Password must be at least 6 characters')
           .required('Please enter a password'),
         confirmPassword: Yup.string()
           .oneOf([Yup.ref('password'), null], 'Passwords must match')
-          .required('Please type your password again')
+          .required('Please type your password again'),
       })}
       onSubmit={(values, {setSubmitting}) => {
         setTimeout(() => {
@@ -56,14 +52,14 @@ function RegisterPage() {
           let dataToSubmit = {
             name: values.name,
             email: values.email,
-            password: values.password
+            password: values.password,
           };
           Axios.post('/auth/register', dataToSubmit)
-            .then((response) => {
+            .then(response => {
               //TODO: auto login user after registering or redirect
               console.log(response);
             })
-            .catch((err) => {
+            .catch(err => {
               console.log(err);
             });
           setSubmitting(false);
@@ -89,23 +85,41 @@ function RegisterPage() {
                   {({field, form}) => (
                     <FormControl isInvalid={form.errors.name && form.touched.name} id="name" mt={2}>
                       <FormLabel htmlFor="name">Name</FormLabel>
-                      <Input {...field} focusBorderColor="purple.500" type="text" placeholder="First and last name" />
+                      <Input
+                        {...field}
+                        focusBorderColor="purple.500"
+                        type="text"
+                        placeholder="First and last name"
+                      />
                       <FormErrorMessage>{form.errors.name}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>
                 <Field name="email">
                   {({field, form}) => (
-                    <FormControl isInvalid={form.errors.email && form.touched.email} id="email" mt={2}>
+                    <FormControl
+                      isInvalid={form.errors.email && form.touched.email}
+                      id="email"
+                      mt={2}
+                    >
                       <FormLabel htmlFor="email">Email</FormLabel>
-                      <Input {...field} focusBorderColor="purple.500" type="email" placeholder="Enter email address" />
+                      <Input
+                        {...field}
+                        focusBorderColor="purple.500"
+                        type="email"
+                        placeholder="Enter email address"
+                      />
                       <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>
                 <Field name="password">
                   {({field, form}) => (
-                    <FormControl isInvalid={form.errors.password && form.touched.password} id="password" mt={2}>
+                    <FormControl
+                      isInvalid={form.errors.password && form.touched.password}
+                      id="password"
+                      mt={2}
+                    >
                       <FormLabel htmlFor="password">Password</FormLabel>
                       <Input
                         {...field}
@@ -119,7 +133,11 @@ function RegisterPage() {
                 </Field>
                 <Field name="confirmPassword">
                   {({field, form}) => (
-                    <FormControl isInvalid={form.errors.confirmPassword && form.touched.confirmPassword} id="confirmPassword" mt={2}>
+                    <FormControl
+                      isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}
+                      id="confirmPassword"
+                      mt={2}
+                    >
                       <FormLabel htmlFor="confirmPassword">Confirm password</FormLabel>
                       <Input
                         {...field}
@@ -164,7 +182,10 @@ function RegisterPage() {
               </a>
               <Divider mt={8} />
               <Text mt={8} textAlign="center" fontSize="xl">
-                Have an account? <Link to="/login"><u>Sign in</u></Link>
+                Have an account?{' '}
+                <Link to="/login">
+                  <u>Sign in</u>
+                </Link>
               </Text>
             </Box>
           </Box>

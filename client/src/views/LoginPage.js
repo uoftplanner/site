@@ -11,7 +11,7 @@ import {
   InputGroup,
   InputRightElement,
   Divider,
-  useToast
+  useToast,
 } from '@chakra-ui/core';
 import {Formik, Field} from 'formik';
 import {Link} from 'react-router-dom';
@@ -38,20 +38,17 @@ function LoginPage(props) {
     <Formik
       initialValues={{email: '', password: ''}}
       validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email('Email is invalid')
-          .required('Email is required'),
-        password: Yup.string()
-          .required('Password is required'),
+        email: Yup.string().email('Email is invalid').required('Email is required'),
+        password: Yup.string().required('Password is required'),
       })}
       onSubmit={(values, {setSubmitting}) => {
         setTimeout(() => {
           let dataToSubmit = {
             email: values.email,
-            password: values.password
+            password: values.password,
           };
           Axios.post('/auth/login', dataToSubmit)
-            .then((response) => {
+            .then(response => {
               // If login was successful
               if (response.data.success) {
                 //TODO: use history.push or location.href?
@@ -60,24 +57,24 @@ function LoginPage(props) {
               } else {
                 // Login failed not due to incorrect email or password
                 toast({
-                  title: "Login failed.",
-                  description: "Invalid email or password.",
-                  position: "top",
-                  status: "error",
+                  title: 'Login failed.',
+                  description: 'Invalid email or password.',
+                  position: 'top',
+                  status: 'error',
                   duration: 9000,
                   isClosable: true,
                 });
               }
             })
-            .catch((err) => {
+            .catch(err => {
               // Login failed due to incorrect email or password, or server error
               // Return the error message from server
               if (err.response.data) {
                 toast({
-                  title: "Login failed.",
-                  description: err.response.data.msg || "Server error.",
-                  position: "top",
-                  status: "error",
+                  title: 'Login failed.',
+                  description: err.response.data.msg || 'Server error.',
+                  position: 'top',
+                  status: 'error',
                   duration: 9000,
                   isClosable: true,
                 });
@@ -100,20 +97,33 @@ function LoginPage(props) {
             >
               <Heading as="h1" size="xl" textAlign="center">
                 Login
-          </Heading>
+              </Heading>
               <form onSubmit={props.handleSubmit}>
                 <Field name="email">
                   {({field, form}) => (
-                    <FormControl isInvalid={form.errors.email && form.touched.email} id="email" mt={2}>
+                    <FormControl
+                      isInvalid={form.errors.email && form.touched.email}
+                      id="email"
+                      mt={2}
+                    >
                       <FormLabel htmlFor="email">Email</FormLabel>
-                      <Input {...field} focusBorderColor="purple.500" type="email" placeholder="Enter email address" />
+                      <Input
+                        {...field}
+                        focusBorderColor="purple.500"
+                        type="email"
+                        placeholder="Enter email address"
+                      />
                       <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     </FormControl>
                   )}
                 </Field>
                 <Field name="password">
                   {({field, form}) => (
-                    <FormControl isInvalid={form.errors.password && form.touched.password} id="password" mt={2}>
+                    <FormControl
+                      isInvalid={form.errors.password && form.touched.password}
+                      id="password"
+                      mt={2}
+                    >
                       <FormLabel htmlFor="password">Password</FormLabel>
                       <InputGroup>
                         <Input
@@ -134,9 +144,7 @@ function LoginPage(props) {
                   )}
                 </Field>
                 <Text mt={2} textAlign="right" color="gray.500">
-                  <Link to="/password/forgot">
-                    Forgot password?
-                  </Link>
+                  <Link to="/password/forgot">Forgot password?</Link>
                 </Text>
                 <Button
                   size="lg"
@@ -171,7 +179,10 @@ function LoginPage(props) {
               </a>
               <Divider mt={8} />
               <Text mt={8} textAlign="center" fontSize="xl">
-                New to site name? <Link to="/register"><u>Sign up</u></Link>
+                New to site name?{' '}
+                <Link to="/register">
+                  <u>Sign up</u>
+                </Link>
               </Text>
             </Box>
           </Box>

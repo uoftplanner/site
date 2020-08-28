@@ -6,11 +6,11 @@ module.exports = {
   oauth: {
     google: {
       clientId: 'GOOGLE APP ID',
-      clientSecret: 'GOOGLE APP SECRET'
+      clientSecret: 'GOOGLE APP SECRET',
     },
     facebook: {
       clientId: 'FACEBOOK APP ID',
-      clientSecret: 'FACEBOOK APP SECRET'
-    }
-  }
+      clientSecret: 'FACEBOOK APP SECRET',
+    },
+  },
 };

@@ -8,22 +8,22 @@ const User = require('../models/User');
 
 // Code adapted from BossOz: https://stackoverflow.com/a/60863083
 
-const base64Encode = (data) => {
+const base64Encode = data => {
   let buff = new Buffer.from(data);
   return buff.toString('base64');
-}
+};
 
-const base64Decode = (data) => {
+const base64Decode = data => {
   let buff = new Buffer.from(data, 'base64');
   return buff.toString('ascii');
-}
+};
 
 const sha256 = (salt, password) => {
   var hash = crypto.createHash('sha512', password);
   hash.update(salt);
   var value = hash.digest('hex');
   return value;
-}
+};
 
 router.post('/forgot', (req, res) => {
   try {
@@ -45,7 +45,7 @@ router.post('/forgot', (req, res) => {
         today: today,
         userId: user._id,
         password: user.password,
-        email: user.email
+        email: user.email,
       };
       const hash = sha256(JSON.stringify(data), passwordResetKey);
       const link = `/reset/${ident}/${today}-${hash}`;
@@ -53,18 +53,18 @@ router.post('/forgot', (req, res) => {
       // TODO: send an email with the link
       // For now, we just return the link
       return res.status(200).json({success: true, link});
-
     });
   } catch (err) {
-    res.status(500).json({success: false, err: 'Unexpected error during the password reset process: ' + err.message});
+    res.status(500).json({
+      success: false,
+      err: 'Unexpected error during the password reset process: ' + err.message,
+    });
     return;
   }
 });
 
 router.get('/check/:ident/:today-:hash', (req, res) => {
-
   try {
-
     // Check if the link in not out of date
     const today = base64Decode(req.params.today);
     const then = moment(today);
@@ -93,7 +93,7 @@ router.get('/check/:ident/:today-:hash', (req, res) => {
         today: req.params.today,
         userId: user._id,
         password: user.password,
-        email: user.email
+        email: user.email,
       };
       const hash = sha256(JSON.stringify(data), passwordResetKey);
 
@@ -104,15 +104,16 @@ router.get('/check/:ident/:today-:hash', (req, res) => {
       return res.status(200).json({success: true, msg: 'Please proceed to reset password.'});
     });
   } catch (err) {
-    res.status(500).json({success: false, err: 'Unexpected error during the password reset process: ' + err.message});
+    res.status(500).json({
+      success: false,
+      err: 'Unexpected error during the password reset process: ' + err.message,
+    });
     return;
   }
 });
 
 router.post('/reset', (req, res) => {
-
   try {
-
     // Check if the link in not out of date
     const today = base64Decode(req.body.today);
     const then = moment(today);
@@ -141,7 +142,7 @@ router.post('/reset', (req, res) => {
         today: req.body.today,
         userId: user._id,
         password: user.password,
-        email: user.email
+        email: user.email,
       };
       const hash = sha256(JSON.stringify(data), passwordResetKey);
 
@@ -154,7 +155,10 @@ router.post('/reset', (req, res) => {
 
       user.save((err, doc) => {
         if (err) {
-          res.status(500).json({success: false, err: 'Unexpected error during the password reset process: ' + err.message});
+          res.status(500).json({
+            success: false,
+            err: 'Unexpected error during the password reset process: ' + err.message,
+          });
           return;
         }
 
@@ -162,7 +166,10 @@ router.post('/reset', (req, res) => {
       });
     });
   } catch (err) {
-    res.status(500).json({success: false, err: 'Unexpected error during the password reset process: ' + err.message});
+    res.status(500).json({
+      success: false,
+      err: 'Unexpected error during the password reset process: ' + err.message,
+    });
     return;
   }
 });

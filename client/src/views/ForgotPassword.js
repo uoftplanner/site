@@ -9,7 +9,7 @@ import {
   FormErrorMessage,
   Input,
   Button,
-  useToast
+  useToast,
 } from '@chakra-ui/core';
 import {Formik, Field} from 'formik';
 import * as Yup from 'yup';
@@ -22,7 +22,7 @@ const backgroundStyle = {
   backgroundSize: 'cover',
   backgroundAttachment: 'fixed',
   backgroundRepeat: 'no-repeat',
-  height: '100vh'
+  height: '100vh',
 };
 
 function ForgotPassword() {
@@ -32,43 +32,41 @@ function ForgotPassword() {
     <Formik
       initialValues={{email: ''}}
       validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email('Email is invalid')
-          .required('Email is required')
+        email: Yup.string().email('Email is invalid').required('Email is required'),
       })}
       onSubmit={(values, {setSubmitting, setStatus}) => {
         setTimeout(() => {
           let dataToSubmit = {
-            email: values.email
+            email: values.email,
           };
           Axios.post('/password/forgot', dataToSubmit)
-            .then((response) => {
+            .then(response => {
               // If password reset link generation was successful
               if (response.data.success) {
                 // TODO: remove console log
                 console.log(response.data);
-                setStatus("submitted");
+                setStatus('submitted');
               } else {
                 // Password reset link generation failed
                 toast({
-                  title: "Failed to generate password reset link.",
-                  description: "Server error.",
-                  position: "top",
-                  status: "error",
+                  title: 'Failed to generate password reset link.',
+                  description: 'Server error.',
+                  position: 'top',
+                  status: 'error',
                   duration: 9000,
                   isClosable: true,
                 });
               }
             })
-            .catch((err) => {
+            .catch(err => {
               // Password reset link generation failed
               // Return the error message from server
               if (err.response.data) {
                 toast({
-                  title: "Failed to generate password reset link.",
-                  description: err.response.data.err || "Server error.",
-                  position: "top",
-                  status: "error",
+                  title: 'Failed to generate password reset link.',
+                  description: err.response.data.err || 'Server error.',
+                  position: 'top',
+                  status: 'error',
                   duration: 9000,
                   isClosable: true,
                 });
@@ -93,24 +91,36 @@ function ForgotPassword() {
                 Forgot Password
               </Heading>
 
-              {props.status === "submitted" ?
+              {props.status === 'submitted' ? (
                 <div>
-                  <Image m="auto auto 2em auto" width="150px" src="../undraw_Mail_sent_re_0ofv.svg" />
-                  <Text mb="1em">
-                    Please check your email for a link to reset your password.
-                  </Text>
+                  <Image
+                    m="auto auto 2em auto"
+                    width="150px"
+                    src="../undraw_Mail_sent_re_0ofv.svg"
+                  />
+                  <Text mb="1em">Please check your email for a link to reset your password.</Text>
                 </div>
-                :
+              ) : (
                 <div>
                   <Text mb="1em">
-                    Enter your email address here and check your email for a link to reset your password.
-                </Text>
+                    Enter your email address here and check your email for a link to reset your
+                    password.
+                  </Text>
                   <form onSubmit={props.handleSubmit}>
                     <Field name="email">
                       {({field, form}) => (
-                        <FormControl isInvalid={form.errors.email && form.touched.email} id="email" mt={2}>
+                        <FormControl
+                          isInvalid={form.errors.email && form.touched.email}
+                          id="email"
+                          mt={2}
+                        >
                           <FormLabel htmlFor="email">Email</FormLabel>
-                          <Input {...field} focusBorderColor="purple.500" type="email" placeholder="Enter email address" />
+                          <Input
+                            {...field}
+                            focusBorderColor="purple.500"
+                            type="email"
+                            placeholder="Enter email address"
+                          />
                           <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                         </FormControl>
                       )}
@@ -127,7 +137,7 @@ function ForgotPassword() {
                     </Button>
                   </form>
                 </div>
-              }
+              )}
             </Box>
           </Box>
         </div>
