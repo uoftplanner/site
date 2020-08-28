@@ -34,16 +34,17 @@ function Header() {
       </Flex>
 
       <UserContext.Consumer>
-        {value => {
-          console.log(value);
-          if (value.isLoading) {
-            return (<div></div>);
-          } else if (value.loggedIn) {
+        {auth => {
+          if (auth.isLoading) {
+            return null;
+          }
+
+          if (auth.user) {
             return (
               <Menu>
                 <MenuButton>
                   <Flex alignItems="center">
-                    <Avatar name={value.user.name} src={value.user.picture} />
+                    <Avatar name={auth.user.name} src={auth.user.picture} />
                     <Box as={FaCaretDown} />
                   </Flex>
                 </MenuButton>
@@ -56,13 +57,12 @@ function Header() {
               </Menu>
             );
           }
+
           return (
             <Flex alignItems="center">
               <Box marginRight={{base: '0px', md: '38px'}}>
                 <Link to="/login">
-                  <Button variant="outline">
-                    login
-                  </Button>
+                  <Button variant="outline">login</Button>
                 </Link>
               </Box>
               <Link to="/register">

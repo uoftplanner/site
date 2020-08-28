@@ -15,38 +15,42 @@ import ResetPassword from './views/ResetPassword';
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
-      isLoading: true,
-      loggedIn: false,
-      user: {},
+      auth: {
+        isLoading: true,
+        user: null,
+      },
     };
   }
 
   componentDidMount() {
     // get and set currently logged in user to state
-    Axios.get('/auth/')
-      .then(response => {
-        console.log(response);
-        if (response.data.success) {
-          this.setState({isLoading: false, loggedIn: true, user: response.data.user});
-        } else {
-          this.setState({isLoading: false, loggedIn: false});
-        }
-      })
-      .catch(err => {
-        console.log(err);
+    Axios.get('/auth/').then(response => {
+      if (response.data.success) {
+        this.setState({
+          auth: {
+            isLoading: false,
+            user: response.data.user,
+          },
+        });
+        return;
+      }
+
+      this.setState({
+        auth: {
+          isLoading: false,
+        },
       });
+    });
   }
 
   render() {
-    const value = {
-      isLoading: this.state.isLoading,
-      loggedIn: this.state.loggedIn,
-      user: this.state.user,
-    };
+    const {auth} = this.state;
+
     return (
       <ChakraProvider theme={theme}>
-        <UserContext.Provider value={value}>
+        <UserContext.Provider value={auth}>
           <CSSReset />
           <Router>
             <Header />

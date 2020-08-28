@@ -1,5 +1,8 @@
-import {createContext} from 'react';
+import React from 'react';
 
-const UserContext = createContext({loggedIn: false, user: {}});
+const UserContext = React.createContext({
+  isLoading: true,
+  user: null,
+});
 
 export default UserContext;
