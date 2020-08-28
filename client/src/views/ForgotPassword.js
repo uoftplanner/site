@@ -36,7 +36,7 @@ function ForgotPassword() {
       })}
       onSubmit={(values, {setSubmitting, setStatus}) => {
         setTimeout(() => {
-          let dataToSubmit = {
+          const dataToSubmit = {
             email: values.email,
           };
           Axios.post('/password/forgot', dataToSubmit)

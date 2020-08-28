@@ -47,16 +47,16 @@ function RegisterPage() {
       })}
       onSubmit={(values, {setSubmitting}) => {
         setTimeout(() => {
-          var cleanEmail = values.email;
+          const cleanEmail = values.email;
           cleanEmail.trim();
-          let dataToSubmit = {
+          const dataToSubmit = {
             name: values.name,
             email: values.email,
             password: values.password,
           };
           Axios.post('/auth/register', dataToSubmit)
             .then(response => {
-              //TODO: auto login user after registering or redirect
+              // TODO: auto login user after registering or redirect
               console.log(response);
             })
             .catch(err => {

@@ -1,33 +1,33 @@
 const express = require('express');
 
 const router = express.Router();
-const passwordResetKey = require('../config/key').passwordResetKey;
 const crypto = require('crypto');
 const moment = require('moment');
+const {passwordResetKey} = require('../config/key');
 const User = require('../models/User');
 
 // Code adapted from BossOz: https://stackoverflow.com/a/60863083
 
 const base64Encode = data => {
-  let buff = new Buffer.from(data);
+  const buff = new Buffer.from(data);
   return buff.toString('base64');
 };
 
 const base64Decode = data => {
-  let buff = new Buffer.from(data, 'base64');
+  const buff = new Buffer.from(data, 'base64');
   return buff.toString('ascii');
 };
 
 const sha256 = (salt, password) => {
-  var hash = crypto.createHash('sha512', password);
+  const hash = crypto.createHash('sha512', password);
   hash.update(salt);
-  var value = hash.digest('hex');
+  const value = hash.digest('hex');
   return value;
 };
 
 router.post('/forgot', (req, res) => {
   try {
-    const email = req.body.email;
+    const {email} = req.body;
 
     User.findOne({email}, (err, user) => {
       if (err) {
@@ -42,7 +42,7 @@ router.post('/forgot', (req, res) => {
       const today = base64Encode(new Date().toISOString());
       const ident = base64Encode(user._id.toString());
       const data = {
-        today: today,
+        today,
         userId: user._id,
         password: user.password,
         email: user.email,
@@ -57,9 +57,8 @@ router.post('/forgot', (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      err: 'Unexpected error during the password reset process: ' + err.message,
+      err: `Unexpected error during the password reset process: ${err.message}`,
     });
-    return;
   }
 });
 
@@ -106,9 +105,8 @@ router.get('/check/:ident/:today-:hash', (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      err: 'Unexpected error during the password reset process: ' + err.message,
+      err: `Unexpected error during the password reset process: ${err.message}`,
     });
-    return;
   }
 });
 
@@ -153,24 +151,28 @@ router.post('/reset', (req, res) => {
       // UPDATE THE PASSWORD HERE
       user.password = req.body.password;
 
-      user.save((err, doc) => {
-        if (err) {
+      user.save(error => {
+        if (error) {
           res.status(500).json({
             success: false,
-            err: 'Unexpected error during the password reset process: ' + err.message,
+            err: `Unexpected error during the password reset process: ${error.message}`,
           });
           return;
         }
 
         return res.status(200).json({success: true, msg: 'Password successfully reset!'});
       });
+
+      return res.status(500).json({
+        success: false,
+        err: `Unexpected error during the password reset process: ${err.message}`,
+      });
     });
   } catch (err) {
     res.status(500).json({
       success: false,
-      err: 'Unexpected error during the password reset process: ' + err.message,
+      err: `Unexpected error during the password reset process: ${err.message}`,
     });
-    return;
   }
 });
 

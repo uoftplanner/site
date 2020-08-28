@@ -43,7 +43,7 @@ function LoginPage(props) {
       })}
       onSubmit={(values, {setSubmitting}) => {
         setTimeout(() => {
-          let dataToSubmit = {
+          const dataToSubmit = {
             email: values.email,
             password: values.password,
           };
@@ -51,8 +51,8 @@ function LoginPage(props) {
             .then(response => {
               // If login was successful
               if (response.data.success) {
-                //TODO: use history.push or location.href?
-                //props.history.push('/');
+                // TODO: use history.push or location.href?
+                // props.history.push('/');
                 window.location.href = '/';
               } else {
                 // Login failed not due to incorrect email or password
